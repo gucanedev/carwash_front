@@ -1,0 +1,66 @@
+.card {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.left-div {
+    float: left;
+    width: 85%;
+    /* Adjust as needed */
+    font-weight: bold;
+    font-family: 'Roboto Flex', sans-serif;
+    font-family: 'Sofia Sans Condensed', sans-serif;
+    /* Apply the custom font */
+    font-size: 20px;
+    /* Example font size */
+    color: #333;
+    /* Example text color */
+    padding: 5px;
+    /* Example padding */
+}
+
+.right-div {
+    float: right;
+    width: 10%;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+.all-row {
+    float: right;
+    width: 100%;
+
+
+}
+
+mat-chip-option {
+    font-weight: bold;
+    font-size: x-small;
+}
+
+.floatbuttom {
+    position: fixed;
+    bottom: 40px;
+    right: 20%;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%;
+
+    }
+}

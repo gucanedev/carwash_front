@@ -1,0 +1,18 @@
+
+<h1 mat-dialog-title class="sizeNumber">Total:  $ {{data.name}}</h1>
+<div mat-dialog-content>
+  <!-- <p>What's your favorite animal?</p> -->
+  <mat-form-field>
+    <mat-label>Pago del cliente</mat-label>
+    <input class="sizeNumber" type="number" matInput [(ngModel)]="data.animal" (ngModelChange)="modelChangeFn($event) ">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Cambio</mat-label>
+    <input type="number" matInput [(ngModel)]="cambio">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Aceptar</button>
+</div>

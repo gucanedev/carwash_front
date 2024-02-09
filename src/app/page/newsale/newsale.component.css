@@ -1,0 +1,89 @@
+.containerform {
+    position: relative;
+    /* max-width: 100%;
+    width: 100%; */
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+}
+
+.containerform header {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.containerform::before {
+    content: '';
+    position: absolute;
+
+    top: 30px;
+    height: 3px;
+    width: 27px;
+    border-radius: 8px;
+    background-color: #4070f4;
+}
+
+.containerform form {
+    position: relative;
+    margin-top: 16px;
+    background-color: #fff;
+
+}
+
+
+.containerform form .details {
+    margin-top: 10px;
+
+}
+
+.containerform form .titleform {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: #333;
+}
+
+.containerform form .fields {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+form .fields .input-fieldc {
+    display: flex;
+    width: calc(100% /3 - 15px);
+    flex-direction: column;
+    margin: 5px 0;
+
+
+
+}
+
+.errorCustom {
+    display: block;
+    color: var(--mdc-theme-error, #f44336);
+}
+
+table {
+    width: 100%;
+}
+
+tr.mat-mdc-footer-row td {
+    font-weight: bold;
+}
+
+
+@media(max-width:750px) {
+    form .fields .input-fieldc {
+        width: calc(100% /2 - 15px);
+    }
+}
+
+@media(max-width:550px) {
+    form .fields .input-fieldc {
+        width: 100%
+    }
+}

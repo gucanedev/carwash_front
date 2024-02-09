@@ -1,0 +1,42 @@
+<div class="containerform">
+    <header>Servicios</header>
+    <div class="container">
+    <form [formGroup]="serviceform" >
+        <mat-form-field appearance="outline" class="input-fieldc">
+            <mat-label>Descripcion</mat-label>
+            <input matInput placeholder="Servicio"
+            formControlName="descripcion"
+            [(ngModel)]="descripcionValue"
+            required
+            >
+            <mat-error *ngIf="descripcion.invalid">{{getErrorDesc()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="input-fieldc" floatLabel="always">
+            <mat-label>Precio</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" 
+            formControlName="precio"
+            [(ngModel)]="precioValue"
+            required
+            >
+            <mat-error *ngIf="descripcion.invalid">{{getErrorPrecio()}}</mat-error>
+            <span matTextPrefix>$&nbsp;</span>
+            <span matTextSuffix>.00</span>
+          </mat-form-field>
+
+          <section class="example-section" [formGroup]="serviceform">
+            <p><mat-checkbox formControlName="haveStep">¿Tiene etapas de trabajo?</mat-checkbox></p>
+            
+          </section>
+
+         
+
+          <div  align="end" style="margin-right: 10px;">
+              <button mat-raised-button color="secundary" (click)="update()" style="margin: 10px;" >Cancelar</button>
+              <button mat-raised-button color="primary" (click)="save()" >Guardar</button>
+            </div>
+    </form>
+  </div>
+   
+   
+</div>

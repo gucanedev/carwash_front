@@ -1,0 +1,50 @@
+<div class="login-container">
+  <h2>Iniciar Sesión</h2>
+  <form  [formGroup]="loginform" (ngSubmit)="login()">
+    
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Correo Electrónico:</mat-label>
+      <input  matInput placeholder="ej.  pat@example.com" 
+      formControlName="emailControl" 
+      required >
+      
+      @if (emailControl.invalid) {
+        <mat-error>{{getErrorMessage()}}</mat-error>
+      }
+   
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Password:</mat-label>
+      <input  matInput type="password" formControlName="passControl"
+       required
+        >
+        @if (passControl.invalid) {
+          <mat-error>{{getErrorMessagepassword()}}</mat-error>
+        }
+    </mat-form-field>
+    
+      <!-- <mat-form-field appearance="outline"> 
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" class="form-control">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field> -->
+   
+      <!-- <div class="example-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your email</mat-label>
+          <input type="email" matInput placeholder="pat@example.com" [formControl]="emailControl" required>
+          @if (emailControl.invalid) {
+            <mat-error>{{getErrorMessage2()}}</mat-error>
+          }
+        </mat-form-field>
+      </div> -->
+
+    <button  class="butonLogin" type="submit" >Iniciar Sesión</button>
+    <p>Form Status: {{ loginform.status }}</p>
+    <!-- <p>Form Status: {{ emailControl|json }}</p> -->
+  </form>
+</div>

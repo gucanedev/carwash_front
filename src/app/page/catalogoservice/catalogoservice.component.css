@@ -1,0 +1,45 @@
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+
+.containerform {
+    position: relative;
+    /* max-width: 100%;
+    width: 100%; */
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+}
+
+.containerform header {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.containerform::before {
+    content: '';
+    position: absolute;
+
+    top: 30px;
+    height: 3px;
+    width: 27px;
+    border-radius: 8px;
+    background-color: #4070f4;
+}
+
+@media(max-width:750px) {
+    form .fields .input-fieldc {
+        width: calc(100% /2 - 15px);
+    }
+}
+
+@media(max-width:550px) {
+    form .fields .input-fieldc {
+        width: 100%
+    }
+}

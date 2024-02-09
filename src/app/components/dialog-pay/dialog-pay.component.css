@@ -1,0 +1,7 @@
+.error-message {
+    margin-top: 50px;
+    color: #ff4081;
+    font-weight: bold;
+    font-size: 1.2em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

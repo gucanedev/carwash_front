@@ -1,0 +1,73 @@
+.login-form {
+    padding: 4rem 2rem;
+
+
+
+}
+
+mat-card {
+    max-width: 400px;
+    margin: 4rem auto;
+    text-align: center;
+    height: 350px;
+    border-radius: 10px;
+}
+
+.full-width-input,
+button {
+    width: 100%;
+}
+
+.separator {
+    margin-bottom: 2rem;
+}
+
+
+.example-h2 {
+    margin: 10px;
+}
+
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+.example-margin {
+    margin: 0 10px;
+}
+
+.example-card {
+    margin-bottom: 10px;
+}
+
+.centered-container {
+    margin-top: 50px;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+.error-message {
+    margin-top: 50px;
+    color: #ff4081;
+    font-weight: bold;
+    font-size: 1.2em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+@media (max-width: 700px) {
+    mat-card {
+        height: 85vh;
+        margin: 0.5rem auto;
+    }
+}
+
+@media (max-width: 500px) {
+    mat-card {
+        height: 95vh;
+        margin: 0.5rem auto;
+    }
+}
