@@ -11,7 +11,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnack
 import { MatDialog } from '@angular/material/dialog';
 
 
-import { CatService, CatServicioH } from '../../models/catServicio';
+import { CatService, CatServiceSale, CatServicioH } from '../../models/catServicio';
 import { IServicioSelect, Venta, itemSales } from '../../models/Sales';
 import { SaleService } from '../../service/sale.service';
 import { DialogPayComponent } from '../../components/dialog-pay/dialog-pay.component';
@@ -30,7 +30,8 @@ import { ResponseGeneric } from '../../models/commun';
 })
 export class NewsaleComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private _saleSerice: SaleService,
+  constructor(private fb: FormBuilder,
+    private _saleSerice: SaleService,
     public dialog: MatDialog,
     private _router: Router,
     private _snackBar: MatSnackBar
@@ -43,7 +44,7 @@ export class NewsaleComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   // objservi: CatServicioH = { servicioId: 1, descripcion: "" };
-  serviceList: CatServicioH[] = [{ id: 1, descripcion: "No hay registros", precio: 0 }];
+  serviceList: CatServicioH[] = [{ id: 1, descripcion: "No hay registros", precio: 0, tiempoEstimado: 0, tiempoEstGeneral: 0 }];
   // serviceList2: CatServicioH = { servicioId: 1, descripcion: "Inicial" };
   toppingListfb: IServicioSelect[] = [{ id: 1, descripcion: "asdasd" }];
 
@@ -58,6 +59,9 @@ export class NewsaleComponent implements OnInit {
   AcctionButton: string = '';
   name: number = 0;
   totalVenta: number = 0;
+  tiempoEstimado: number = 0
+  tiempoEstimadostr: string = ''
+  VehiclesFront: string = '';
 
   salesForm = this.fb.group({
     client: [''],
@@ -114,13 +118,18 @@ export class NewsaleComponent implements OnInit {
 
 
   getServicesBD() {
-    let CatServicioHija: CatServicioH[];
-    const loginreturn = this._saleSerice.getAllService()
+
+    const loginreturn = this._saleSerice.getAllServiceSale()
       .subscribe({
-        next: (response: CatService) => {
+        next: (response: CatServiceSale) => {
           if (response.isSuccess) {
-            this.serviceList = response.result;
+            // console.log(response.result);
+            this.tiempoEstimado = response.result.tiempoEstGeneral;
+            this.getElapseTime(this.tiempoEstimado);
+            this.VehiclesFront = response.result.vehiculosDelante + ' Vehículos por delante';
+            this.serviceList = response.result.servicios;
             // this.isLoad = false;
+            // console.log(this.tiempoEstimado);
 
           }
           else {
@@ -169,18 +178,42 @@ export class NewsaleComponent implements OnInit {
     }
   }
 
+  getElapseTime(minutes: number) {
+    this.tiempoEstimadostr = 'Tiempo estimado '
+    let hours = Math.floor(minutes / 60);
+    if (hours >= 1) {
+      let minutesRest = minutes - (60 * hours);
+      this.tiempoEstimadostr += hours + ':' + (minutesRest == 0 ? '' : minutesRest + ' hrs')
+    }
+    else {
+      // son minutos
+      this.tiempoEstimadostr += minutes + ' Minutos';
+    }
 
+
+  }
   vewSalesDetail() {
 
     if (this.salesForm.valid) {
       let entity = new Venta();
-
+      let timeEstimate = 0
       this.selected.forEach((elemen) => {
+
         let filter = this.serviceList.find(elem => elem.id == elemen);
+        if (filter?.tiempoEstimado !== undefined) {
+          timeEstimate += parseInt(filter?.tiempoEstimado.toString());
+        }
+
         let itemS: itemSales = { item: filter?.descripcion ?? '', cost: filter?.precio ?? 0 };
         entity.pushItemSale2(itemS);
       });
 
+      console.log(this.tiempoEstimado + timeEstimate);
+      console.log(this.tiempoEstimado)
+      console.log(timeEstimate)
+
+      this.getElapseTime(this.tiempoEstimado + timeEstimate);
+      // this.tiempoEstimado += timeEstimate;
       this.itemVenta = entity.servicioList;
 
     }
@@ -220,6 +253,10 @@ export class NewsaleComponent implements OnInit {
 
     }
 
+  }
+
+  cancelar() {
+    this._router.navigate(['/lobby']);
   }
 
 }

@@ -8,6 +8,14 @@ export interface IServicioSelect {
     descripcion: string;
 }
 
+export interface IWaitinList {
+    id: number;
+    nombreCliente: string;
+    nombreServicio: string;
+    etapaDesc: string;
+    tiempoTranscurrido: string;
+}
+
 
 export class Venta {
     salesId: number;

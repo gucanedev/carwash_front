@@ -1,42 +1,115 @@
 <div class="containerform">
-    <header>Servicios</header>
-    <div class="container">
-    <form [formGroup]="serviceform" >
-        <mat-form-field appearance="outline" class="input-fieldc">
-            <mat-label>Descripcion</mat-label>
-            <input matInput placeholder="Servicio"
-            formControlName="descripcion"
-            [(ngModel)]="descripcionValue"
-            required
-            >
-            <mat-error *ngIf="descripcion.invalid">{{getErrorDesc()}}</mat-error>
-          </mat-form-field>
+  <header class="headerC">Servicios</header>
+  
+  <form [formGroup]="serviceform" class="formclas">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-50">
+          <mat-label>Descripcion</mat-label>
+          <input matInput placeholder="Servicio"
+          formControlName="descripcion"
+          [(ngModel)]="descripcionValue"
+          required
+          >
+          <mat-error *ngIf="descripcion.invalid">{{getErrorDesc()}}</mat-error>
+        </mat-form-field>
 
-          <mat-form-field appearance="outline" class="input-fieldc" floatLabel="always">
-            <mat-label>Precio</mat-label>
-            <input matInput type="number" class="example-right-align" placeholder="0" 
-            formControlName="precio"
-            [(ngModel)]="precioValue"
-            required
-            >
-            <mat-error *ngIf="descripcion.invalid">{{getErrorPrecio()}}</mat-error>
-            <span matTextPrefix>$&nbsp;</span>
-            <span matTextSuffix>.00</span>
-          </mat-form-field>
 
-          <section class="example-section" [formGroup]="serviceform">
-            <p><mat-checkbox formControlName="haveStep">¿Tiene etapas de trabajo?</mat-checkbox></p>
-            
-          </section>
+        <mat-form-field appearance="outline" class="col-15" floatLabel="always">
+          <mat-label>Precio</mat-label>
+          <input matInput type="number" class="example-right-align" placeholder="0" 
+          formControlName="precio"
+          [(ngModel)]="precioValue"
+          required
+          >
+          <mat-error *ngIf="precio.invalid">{{getErrorPrecio()}}</mat-error>
+          <span matTextPrefix>$&nbsp;</span>
+          <span matTextSuffix>.00</span>
+        </mat-form-field>
 
-         
+        <mat-form-field appearance="outline" class="col-15" floatLabel="always">
+          <mat-label>Tiempo estimado</mat-label>
+          <input matInput type="number" class="example-right-align" placeholder="0" 
+          formControlName="tiempoServicio"
+          [(ngModel)]="timepoServicioValue"
+          required
+          [readonly]="checked"
+          >
+          <mat-error >{{getErrorTiempoServicio()}}</mat-error>
+          <span matTextSuffix>mm</span>
+        </mat-form-field>
 
-          <div  align="end" style="margin-right: 10px;">
-              <button mat-raised-button color="secundary" (click)="update()" style="margin: 10px;" >Cancelar</button>
-              <button mat-raised-button color="primary" (click)="save()" >Guardar</button>
-            </div>
-    </form>
-  </div>
-   
-   
+    </div>
+        
+
+        <section [formGroup]="serviceform">
+          <mat-checkbox   [(ngModel)]="checked" formControlName="haveStep" >¿Tiene etapas de trabajo?</mat-checkbox>
+          
+        </section>
+     @if(checked){
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-50">
+          <mat-label>Etapa</mat-label>
+          <input matInput type="text" placeholder="Aspirado" 
+          formControlName="descripcionetapa"
+          [(ngModel)]="descripcionEtapaValue"
+          
+          >
+          <mat-error >{{getErrorEtapaDesc()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-15" floatLabel="always">
+          <mat-label>Tiempo estimado</mat-label>
+          <input matInput type="number" class="example-right-align" placeholder="20"
+          formControlName="precioetapa"
+          [(ngModel)]="tiempoEtapaValue"
+          
+          >
+          <mat-error >{{getErrorEtapaPrecio()}}</mat-error>
+          <!-- <span matTextPrefix>timer&nbsp;</span> -->
+          <span matTextSuffix>mm</span>
+        </mat-form-field>
+        <div >
+          <button style="margin-left: 10px;"  mat-button color="accent" (click)="addStage()" >{{btnAgregar}}</button>
+          @if (visiblebtnnuevo){
+            <button mat-button color="accent" (click)="cleanFieldNew()" >Nuevo</button>
+          }
+          
+        </div>
+        
+        <!-- <div class="col-15">
+          <button  (click)="addStage()"  mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
+            <mat-icon>plus_one</mat-icon>
+          </button>
+        </div> -->
+      </div>
+        <table mat-table [dataSource]="itemTiempo" class="mat-elevation-z8">
+          <!-- Item Column -->
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Etapa </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.descripcion}} </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+        
+          <!-- Cost Column -->
+          <ng-container matColumnDef="tiempoMinutos">
+            <th mat-header-cell *matHeaderCellDef> Tiempo </th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.tiempoMinutos}}  </td>
+            <td mat-footer-cell *matFooterCellDef> {{getEstimateTimer()}} </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="selectedRow(row)"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+      }
+
+    
+        <div  align="end" style="margin-right: 10px;">
+            <button mat-raised-button color="secundary" (click)="update()" style="margin: 10px;" >Cancelar</button>
+            <button mat-raised-button color="primary" (click)="save()" >Guardar</button>
+          </div>
+  </form>
+
+ 
+ 
 </div>

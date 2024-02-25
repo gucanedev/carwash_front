@@ -1,9 +1,10 @@
 <div class="containerform">
-    <header>Venta</header>
-    <form [formGroup]="salesForm" >
+    <header>Registrar Venta</header>
+     <form [formGroup]="salesForm" >
         <div class="formc">
             <div class="details">
-                <span class="titleform">Registro venta</span>
+                <span class="etiquetaTiempo">{{VehiclesFront}}</span>
+                <!-- <mat-label style="margin-left: 10px;" class="etiquetaTiempo" >hay 3 Vehiculos por delante</mat-label> -->
                 <div class="fields">
     
                     <mat-form-field appearance="outline" class="input-fieldc" >
@@ -28,13 +29,12 @@
     
                       <mat-form-field appearance="outline" class="input-fieldc"  >
                         <mat-label>Telefono</mat-label>
-                        <input matInput #postalCode maxlength="10" placeholder="Telefono" 
+                        <input matInput #postalCode maxlength="10" placeholder="6682256555" 
                         type="number" 
                         formControlName="telephone"
                         >
                          <mat-hint align="end">{{postalCode.value.length}} / 10</mat-hint>
-                        <!-- <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
-                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                    
                         
                       </mat-form-field> 
     
@@ -68,6 +68,7 @@
                    
                    
                     <button mat-button color="primary"  (click)="vewSalesDetail()" >Detalle</button>
+                    <mat-label class="etiquetaTiempo" >{{tiempoEstimadostr}}</mat-label>
                     <br>
                     <table mat-table [dataSource]="itemVenta" class="mat-elevation-z8">
                       <!-- Item Column -->
@@ -93,10 +94,12 @@
             </div>
         </div>
         <div  align="end" style="margin-right: 10px;margin-top: 10px;">
+          <button mat-raised-button style="margin-right: 10px;" (click)="cancelar()">Cancelar</button>
         <button mat-raised-button color="primary" (click)="saveSale()" >Guardar</button>
         <button style="margin-left: 10px;width: 100px;" mat-raised-button color="accent" (click)="openDialog()">Pagar</button>
       </div>
     
       
     </form>
+  
 </div>

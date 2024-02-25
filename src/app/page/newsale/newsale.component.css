@@ -14,7 +14,7 @@
     color: #333;
 }
 
-.containerform::before {
+/* .containerform::before {
     content: '';
     position: absolute;
 
@@ -23,7 +23,7 @@
     width: 27px;
     border-radius: 8px;
     background-color: #4070f4;
-}
+} */
 
 .containerform form {
     position: relative;
@@ -41,8 +41,9 @@
 .containerform form .titleform {
     font-size: 16px;
     font-weight: 500;
-    margin: 6px 0;
-    color: #333;
+
+    margin-bottom: 10px;
+    color: #ff4081;
 }
 
 .containerform form .fields {
@@ -75,6 +76,20 @@ tr.mat-mdc-footer-row td {
     font-weight: bold;
 }
 
+.etiquetaTiempo {
+    color: #ceafcf;
+    /* font-family: "Arial", sans-serif; */
+    /* Tipo de fuente */
+    /* font-size: 18px; */
+    /* Tamaño de fuente */
+    font-weight: bold;
+
+    /* Negrita */
+    /* text-decoration: underline; */
+    /* Subrayado */
+    /* text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); */
+    /* Sombra de texto */
+}
 
 @media(max-width:750px) {
     form .fields .input-fieldc {

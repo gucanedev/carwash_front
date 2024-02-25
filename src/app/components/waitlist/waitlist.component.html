@@ -1,27 +1,33 @@
-<div class="card-list">
-    <div class="card">
-        <span class="left-div">Gustavo Carreño Nevarez</span>
-        <span class="right-div">2:20 </span>
-        <!-- <span class="all-row"></span> -->
-       <div class="all-row">
-        <mat-chip-listbox aria-label="Dog selection" >
-            <mat-chip-option  color="accent" selected disabled >
-           Honda civic 2018
-            </mat-chip-option>
-            <mat-chip-option  color="primary" selected disabled>
-                Esperando..
-                 </mat-chip-option>
-       </mat-chip-listbox>
-       </div>
 
+
+    <div class="card-list">
+        <div class="card">
+            <span class="left-div">{{trabajo.nombreCliente}}</span>
+            <span class="right-div">2:20 </span>
+            <!-- <span class="all-row"></span> -->
+           <div class="all-row">
+            <mat-chip-listbox aria-label="Dog selection" >
+                <mat-chip-option  color="accent" selected disabled >
+               {{trabajo.nombreServicio}}
+                </mat-chip-option>
+                <mat-chip-option  color="primary" selected disabled>
+                   {{trabajo.etapaDesc}}
+                     </mat-chip-option>
+           </mat-chip-listbox>
+           </div>
+    
+        </div>
+    
     </div>
+  
 
-</div>
+
+<!-- 
 <div class="card-list">
   <div class="card">
       <span class="left-div">Cristopher Carreño Cabrera</span>
       <span class="right-div">0:20 </span>
-      <!-- <span class="all-row"></span> -->
+  
      <div class="all-row">
       <mat-chip-listbox aria-label="Dog selection" >
           <mat-chip-option  color="accent" selected disabled >
@@ -38,7 +44,7 @@
   <div class="card">
       <span class="left-div">Andrea </span>
       <span class="right-div">0:20 </span>
-      <!-- <span class="all-row"></span> -->
+     
      <div class="all-row">
       <mat-chip-listbox aria-label="Dog selection" >
           <mat-chip-option  color="accent" selected disabled >
@@ -50,7 +56,7 @@
      </mat-chip-listbox>
      </div>
   </div>
-</div>
+</div> -->
 
 
 

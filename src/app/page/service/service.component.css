@@ -1,51 +1,68 @@
-/* Reset de estilos */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Estilos do formulário */
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
+.containerform {
+    background-color: white;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    margin: 15px;
+    border-radius: 10px;
 }
 
-button {
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+.headerC {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.col-15 {
+    float: left;
+    width: 15%;
+    margin-top: 6px;
+    margin-left: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.col-50 {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 600px) {
+
+    .col-25,
+    .col-75,
+    .col-50,
+    input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .col-15 {
+        width: calc(98%/2);
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 5px;
+
+    }
+
+    .col-15:last-child {
+        margin-right: 0;
+    }
 }

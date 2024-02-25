@@ -1,20 +1,72 @@
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
+.containerform {
+    background-color: white;
+    padding: 10px;
+    margin: 15px;
+    border-radius: 10px;
 }
 
-form .fields .input-fieldc {
-    width: calc(100% /2 - 15px);
+.headerC {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+.col-15 {
+    float: left;
+    width: 15%;
+    margin-top: 6px;
+    margin-left: 20px;
 }
 
-@media(max-width:750px) {
-    form .fields .input-fieldc {
-        width: calc(100% /2 - 15px);
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.col-50 {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+tr.mat-mdc-footer-row td {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+
+    .col-25,
+    .col-75,
+    .col-50,
+    input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .col-15 {
+        width: calc(98%/2);
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 5px;
+
+    }
+
+    .col-15:last-child {
+        margin-right: 0;
     }
 }

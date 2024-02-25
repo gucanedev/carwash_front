@@ -1,1 +1,5 @@
-<app-waitlist></app-waitlist>
+
+@for (lsE of listaEspera; track lsE.id) {
+<app-waitlist [trabajo]="lsE"></app-waitlist>
+}
+
