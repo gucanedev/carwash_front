@@ -14,6 +14,7 @@ export interface IWaitinList {
     nombreServicio: string;
     etapaDesc: string;
     tiempoTranscurrido: string;
+    fechaCreo: string;
 }
 
 

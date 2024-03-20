@@ -1,0 +1,34 @@
+<div class="card-box">
+   <br>
+   <form class="example-form" 
+   [formGroup]="dynamicForm"
+   #form="ngForm" 
+    >
+    <!-- #form="ngForm" -->
+   <mat-chip-option color="accent" selected disabled >{{header.cliente}} - {{header.servicioDesc}} </mat-chip-option>
+   @for(item1 of objEtapasPrincipal; track item1.nombreServicio){
+
+    <h5 >trabajos para <span style="color:#3f51b5" > {{item1.nombreServicio}}</span>  a realizar</h5>
+       
+    @for(item of item1.etapas; track item.id){
+    
+      <!-- <mat-slide-toggle ngModel="{{item.terminada}}"  name={{item.terminada}}>{{item.descripcion}}</mat-slide-toggle> -->
+      <mat-slide-toggle formControlName="{{item.id}}"  >{{item.descripcion}}</mat-slide-toggle>
+       
+    }
+        
+  }
+
+    <div  align="end" style="margin-right: 10px;">
+      <button mat-raised-button color="primary" (click)="save(form.form)" >Guardar</button>
+      <button mat-raised-button color="secundary" (click)="cancelar()" style="margin: 10px;" >Cancelar</button>
+    </div>
+    
+      </form>
+    
+  
+  
+
+</div>
+
+

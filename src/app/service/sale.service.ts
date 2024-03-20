@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { CatABS, CatService, CatServiceSale, EtapaServicio } from '../models/catServicio';
 import { Venta } from '../models/Sales';
 import { ResponseGeneric } from '../models/commun';
+import { Observable } from 'rxjs';
+import { etapaSave } from '../models/workflow';
 
 
 @Injectable({
@@ -39,6 +41,13 @@ export class SaleService {
     return this.http.get<ResponseGeneric>(`${this.rutaApi}/Venta/waitinglist`);
   }
 
+  getworkflow(id: number): Observable<ResponseGeneric> {
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/Venta/workflow?id=${id}`);
+  }
+
+  saveWorkflow(workflow: etapaSave[]): Observable<ResponseGeneric> {
+    return this.http.post<ResponseGeneric>(`${this.rutaApi}/Venta/workflow`, workflow);
+  }
 
 }
 

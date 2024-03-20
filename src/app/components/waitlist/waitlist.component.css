@@ -19,7 +19,7 @@
 
 .left-div {
     float: left;
-    width: 85%;
+    width: 80%;
     /* Adjust as needed */
     font-weight: bold;
     font-family: 'Roboto Flex', sans-serif;
@@ -35,9 +35,10 @@
 
 .right-div {
     float: right;
-    width: 10%;
+    width: 15%;
     padding-top: 5px;
-    font-weight: bold;
+    font-weight: 500;
+
 }
 
 .all-row {

@@ -1,6 +1,12 @@
 <div class="containerform">
   <header class="headerC">Servicios2</header>
  
+  <div *ngFor="let element of trabajo">
+    <h3>{{ element.nombreCliente }}- {{startTimer(element.id)}}</h3>
+    <button (click)="startTimer(element.id)">Iniciar</button>
+    <button (click)="stopTimer(element.id)">Detener</button>
+  </div>
+
   <mat-label>{{daysToDday}}-{{hoursToDday}}:{{minutesToDday}}: {{secondsToDday}}</mat-label>
   <form [formGroup]="serviceform" class="formclas">
     <div class="row">

@@ -256,7 +256,10 @@ export class NewsaleComponent implements OnInit {
   }
 
   cancelar() {
-    this._router.navigate(['/lobby']);
+    this._router.navigate(['/lobby'])
+      .then(() => {
+        window.location.reload();
+      });
   }
 
 }

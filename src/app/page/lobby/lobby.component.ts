@@ -5,24 +5,26 @@ import { IWaitinList } from '../../models/Sales';
 import { SaleService } from '../../service/sale.service';
 import { NotificacionsnackbarService } from '../../service/notificacionsnackbar.service';
 import { ResponseGeneric } from '../../models/commun';
+import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-lobby',
   standalone: true,
-  imports: [CommonModule, WaitlistComponent],
+  imports: [CommonModule, WaitlistComponent, MatIconModule, MatButtonModule],
   templateUrl: './lobby.component.html',
   styleUrl: './lobby.component.css'
 })
 export class LobbyComponent implements OnInit {
   constructor(
     private _notif: NotificacionsnackbarService,
-    private _saleService: SaleService) {
+    private _saleService: SaleService,
+    private _router: Router) {
 
   }
 
-  listaEspera: IWaitinList[] = [
-    { id: 1, nombreCliente: 'NombreCliente', nombreServicio: 'Nombre carro', etapaDesc: 'Etapa desc', tiempoTranscurrido: '0' },
-  ]
+  listaEspera: IWaitinList[] = []
 
   ngOnInit(): void {
     this.getWaitinList();
@@ -50,10 +52,9 @@ export class LobbyComponent implements OnInit {
 
   }
 
-  // listaEspera: IWaitinList[] = [
-  //   { id: 1, nombreCliente: 'Gustavo Carreño Nevarez', NombreServicio: 'Honda civi', EtapaDesc: 'En espera', TiempoTranscurrido: '20' },
-  //   { id: 2, nombreCliente: 'Cristopher Carreño Cabrera', NombreServicio: 'Ford Lobo', EtapaDesc: 'Aspirando', TiempoTranscurrido: '25' },
-  //   { id: 3, nombreCliente: 'Besino de luis', NombreServicio: 'Nissan blanca', EtapaDesc: 'Secado', TiempoTranscurrido: '25' }
-  // ]
+  newSales() {
+    console.log('new sales');
+    this._router.navigate(['newsale'])
+  }
 
 }

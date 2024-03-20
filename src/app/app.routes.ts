@@ -5,6 +5,7 @@ import { NewsaleComponent } from './page/newsale/newsale.component';
 import { CatalogoserviceComponent } from './page/catalogoservice/catalogoservice.component';
 import { ServiceeditComponent } from './components/serviceedit/serviceedit.component';
 import { ServiceComponent } from './page/service/service.component';
+import { WorkdetailComponent } from './page/workdetail/workdetail.component';
 
 export const routes: Routes = [
     {
@@ -41,6 +42,11 @@ export const routes: Routes = [
         path: 'test',
         component: ServiceComponent,
         title: 'test'
+    },
+    {
+        path: 'details/:id',
+        component: WorkdetailComponent,
+        title: 'detalle del vehiculo'
     },
 
 

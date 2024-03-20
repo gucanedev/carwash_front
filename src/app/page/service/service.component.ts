@@ -11,7 +11,8 @@ import { SaleService } from '../../service/sale.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertsnackComponent } from '../../components/common/alertsnack/alertsnack.component';
 
-import { Subscription, interval, Observable } from 'rxjs';
+import { Subscription, interval, Observable, timer } from 'rxjs';
+import { IWaitinList } from '../../models/Sales';
 
 @Component({
   selector: 'app-service',
@@ -30,7 +31,19 @@ export class ServiceComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private _saleService: SaleService,
     private _routeActice: ActivatedRoute,
-    private _route: Router) { }
+    private _route: Router) {
+    this.trabajo.forEach(elemen => {
+      this.timers[elemen.id] = timer(0, 1000);
+    });
+  }
+
+
+  trabajo: IWaitinList[] = [{ id: 1, etapaDesc: 'descEtapa', nombreCliente: 'Gustavo', nombreServicio: 'Honda', tiempoTranscurrido: '20', fechaCreo: '2021-09-01 21:56:34.8600000' },
+  { id: 2, etapaDesc: 'descetapa2', nombreCliente: 'Cristopher', nombreServicio: 'Toyota', tiempoTranscurrido: '2', fechaCreo: '2024-03-01 19:56:08.5133333' }];
+
+  timers: { [key: number]: Observable<number> } = {}; // Objeto para almacenar los contadores de tiempo
+  subscriptions: { [key: number]: Subscription } = {};
+  tiempot: number = 0
 
   descripcionValue: string = ''
   precioValue: Number = 0;
@@ -68,31 +81,43 @@ export class ServiceComponent implements OnInit, OnDestroy {
   SecondsInAMinute = 60;
   minutesInAnHour = 60;
   hoursInADay = 24;
-  private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
 
-    this.subscription = interval(1000).subscribe(x => { this.getTimeDifference(); });
-
+    console.log('inicie')
   }
   ngOnDestroy() {
 
-    this.subscription.unsubscribe();
+    Object.values(this.subscriptions).forEach(subscription => subscription.unsubscribe());
   }
 
-  private getTimeDifference() {
-    this.timeDifference = new Date().getTime() - this.dDay.getTime();
-    this.allocateTimeUnits(this.timeDifference);
-
+  startTimer(element: number) {
+    this.subscriptions[element] = this.timers[element].subscribe(val => {
+      // console.log(`Tiempo transcurrido para ${element}: ${val} segundos`);
+      return val;
+    });
   }
-  private allocateTimeUnits(timeDifference: any) {
 
-    this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
-    this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
-    this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
-    this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
-
+  stopTimer(element: number) {
+    if (this.subscriptions[element]) {
+      this.subscriptions[element].unsubscribe();
+      console.log(`Contador de tiempo para ${element} detenido`);
+    }
   }
+
+  // private getTimeDifference() {
+  //   this.timeDifference = new Date().getTime() - this.dDay.getTime();
+  //   this.allocateTimeUnits(this.timeDifference);
+
+  // }
+  // private allocateTimeUnits(timeDifference: any) {
+
+  //   this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
+  //   this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
+  //   this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
+  //   this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
+
+  // }
 
   test() {
     console.log('asdasd')

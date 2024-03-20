@@ -24,3 +24,18 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background: linear-gradient(to bottom, #1831bb, #1f1e1e00);
 }
+
+.card-box {
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center; */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+
+}
