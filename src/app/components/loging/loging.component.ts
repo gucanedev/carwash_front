@@ -44,6 +44,7 @@ export class LogingComponent {
 
   }
 
+
   getErrorMessage() {
     if (this.username.hasError('required')) {
       return 'El usuario es requerido ';
@@ -68,12 +69,13 @@ export class LogingComponent {
       this.objLogin.Password = formValue.password!;
       const loginreturn = await this._userService.login(this.objLogin)
         .subscribe({
-          next: (response: UserResponse) => {
+          next: (response: any) => {
             console.log(response)
             if (response.isSuccess) {
-              console.log('Exitoso')
-              // localStorage.setItem('jwt', response.token);
-              console.log(response)
+
+              this._userService.SetToken(response.result.tokenData)
+
+
               this.isLoad = false;
               this._router.navigate(['/lobby']);
             }

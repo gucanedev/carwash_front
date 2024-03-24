@@ -30,6 +30,9 @@ export class SaleService {
   saveSale(entity: Venta) {
     return this.http.post<ResponseGeneric>(`${this.rutaApi}/Venta`, entity);
   }
+  save(entity: any) {
+    return this.http.post<ResponseGeneric>(`${this.rutaApi}/Venta`, entity);
+  }
   getServiceById(id: number) {
     return this.http.get<CatABS>(`${this.rutaApi}/Venta/servicio/id?id=${id}`);
   }

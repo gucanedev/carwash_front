@@ -17,6 +17,8 @@ import { SaleService } from '../../service/sale.service';
 import { DialogPayComponent } from '../../components/dialog-pay/dialog-pay.component';
 import { Router } from '@angular/router';
 import { ResponseGeneric } from '../../models/commun';
+import { DialogItemComponent } from '../../components/dialog-item/dialog-item.component';
+import { SearchcustomerComponent } from '../../components/searchcustomer/searchcustomer.component';
 
 
 
@@ -45,6 +47,7 @@ export class NewsaleComponent implements OnInit {
 
   // objservi: CatServicioH = { servicioId: 1, descripcion: "" };
   serviceList: CatServicioH[] = [{ id: 1, descripcion: "No hay registros", precio: 0, tiempoEstimado: 0, tiempoEstGeneral: 0 }];
+
   // serviceList2: CatServicioH = { servicioId: 1, descripcion: "Inicial" };
   toppingListfb: IServicioSelect[] = [{ id: 1, descripcion: "asdasd" }];
 
@@ -208,9 +211,9 @@ export class NewsaleComponent implements OnInit {
         entity.pushItemSale2(itemS);
       });
 
-      console.log(this.tiempoEstimado + timeEstimate);
-      console.log(this.tiempoEstimado)
-      console.log(timeEstimate)
+      // console.log(this.tiempoEstimado + timeEstimate);
+      // console.log(this.tiempoEstimado)
+      // console.log(timeEstimate)
 
       this.getElapseTime(this.tiempoEstimado + timeEstimate);
       // this.tiempoEstimado += timeEstimate;
@@ -251,6 +254,38 @@ export class NewsaleComponent implements OnInit {
       });
 
 
+    }
+
+  }
+  selectedRow(row: itemSales) {
+    console.log(row.item);
+    if (this.salesForm.valid && this.itemVenta.length > 0) {
+
+      // let total: number = this.getTotalCost();
+
+      // if (total <= 0) {
+      //   console.log('No hay nada')
+      //   this.openSnackBar("Agregar servicios a la lista");
+      //   return;
+      // }
+
+
+      const dialogRef = this.dialog.open(DialogItemComponent, {
+        data: { descripcion: row.item, costo: row.cost, cancelar: "cancelar" },
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != 'cancelar') {
+
+
+          this.AcctionButton = '';
+        }
+
+        console.log(result);
+
+
+
+      });
     }
 
   }

@@ -1,0 +1,94 @@
+<div class="containerform">
+    <header class="headerC">Venta</header>
+    
+    <form [formGroup]="salesForm" class="formclas">
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-40">
+            <mat-label>Cliente</mat-label>
+            <input matInput placeholder="Nombre Cliente"
+            formControlName="client"
+    
+            required
+            >
+            <!-- <mat-error *ngIf="descripcion.invalid">{{getErrorDesc()}}</mat-error> -->
+          </mat-form-field>
+  
+  
+          <mat-form-field appearance="outline" class="col-30-margin"  floatLabel="always">
+            <mat-label>Carro</mat-label>
+            <input matInput placeholder="Carro"
+            formControlName="description"
+    
+            required
+            >
+            <!-- <mat-error *ngIf="precio.invalid">{{getErrorPrecio()}}</mat-error> -->
+          
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="col-15-long" floatLabel="always">
+            <mat-label>Telefono</mat-label>
+            <input matInput #postalCode maxlength="10" placeholder="6682256555" 
+            type="number" 
+            formControlName="telephone"
+            required
+            >
+             <mat-hint align="end">{{postalCode.value.length}} / 10</mat-hint>
+            <!-- <mat-error >{{getErrorTiempoServicio()}}</mat-error> -->
+           
+          </mat-form-field>
+  
+      </div>
+      <div class="row">
+        <!-- <mat-form-field appearance="outline" class="col-70-servicio">
+            <mat-label>Servicio</mat-label>
+            <input matInput placeholder="Servicio"
+            formControlName="service"
+    
+            required
+            >
+            
+          </mat-form-field> -->
+
+          <mat-form-field  appearance="outline" class="col-70-servicio">
+            <mat-label>Servicio</mat-label>
+            <input type="text"
+                   matInput
+                   formControlName="service"
+                   required
+                   [matAutocomplete]="autoGroup">
+              <mat-autocomplete #autoGroup="matAutocomplete">
+                <!-- @for (group of stateGroupOptions | async; track group) {
+                  <mat-optgroup [label]="group.letter">
+                    @for (name of group.names; track name) {
+                      <mat-option [value]="name">{{name}}</mat-option>
+                    }
+                  </mat-optgroup>
+                } -->
+                @for (service of stateGroupOptions | async; track service.id) {
+                    <mat-option [value]="service.id">
+                      
+                      
+                      <small>{{service.descripcion}}- ${{service.precio}}</small>
+                    </mat-option>
+                  }
+            </mat-autocomplete>
+          </mat-form-field>
+          <button mat-button color="primary"(click)="agregar()" >Agregar</button>
+      </div>    
+      @if (listCarrito.length>0){
+        <app-searchcustomer [carritoL]="listCarrito" (carritoEvent)="updateCarrito($event)" ></app-searchcustomer>
+      }
+      
+  
+      
+          <div  align="end" style="margin-right: 10px;">
+              
+              <button mat-raised-button color="primary" style="margin: 10px;"  (click)="save()" >Guardar</button>
+              <button mat-raised-button color="secundary" (click)="regresa()"  >Regresar</button>
+            </div>
+    </form>
+  
+   
+   
+  </div>
+

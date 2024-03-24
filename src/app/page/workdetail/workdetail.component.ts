@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -14,6 +14,7 @@ import {
   _MatSlideToggleRequiredValidatorModule,
 } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+import { NotificacionsnackbarService } from '../../service/notificacionsnackbar.service';
 
 
 
@@ -46,6 +47,7 @@ export class WorkdetailComponent implements OnInit {
     private _route: Router,
     private _formBuilder: FormBuilder) { }
 
+  _notity = inject(NotificacionsnackbarService);
 
   etapas: etapaWorkflow[] = [{ id: 0, descripcion: 'inicial', tiempoMinutos: 50, terminada: true }];
   displayedColumns: string[] = ['select', 'id', 'descripcion', 'tiempoMinutos'];
@@ -86,25 +88,25 @@ export class WorkdetailComponent implements OnInit {
       .subscribe({
         next: (response: ResponseGeneric) => {
           if (response.isSuccess) {
-            // console.log(response.result.etapas);
-            // this.etapas = response.result.etapas;
+
             this.header.cliente = response.result.nombreCliente
             this.header.ventaId = response.result.ventaId
             this.header.precioVenta = response.result.precioVenta
             this.header.servicioDesc = response.result.nombreBien;
             this.objEtapasPrincipal = response.result.servicios;
-            console.log(this.objEtapasPrincipal);
+
 
             this.addDynamicControls(this.objEtapasPrincipal);
           }
           else {
+            this._notity.openSnackBar('error load service', 'OK', 5);
             // this._notif.openSnackBar("Ocurrio un error al cargar los servicios", "OK", 5);
 
           }
 
         },
         error: (er: any) => {
-
+          this._notity.openSnackBar('error metodo loadData', 'OK', 5);
           // this.isLoad = false;
           // this.messageError = "Ocurrio un error al intentar Iniciar Sesión";
           // this._notif.openSnackBar("Ocurrio un error al cargar los servicios", "OK", 5);
@@ -118,17 +120,13 @@ export class WorkdetailComponent implements OnInit {
   }
 
   save(formGroup: FormGroup): void {
-    //  formGroup.get('descripcionetapa')?.value!
-    // alert(JSON.stringify(formGroup.value, null, 2));
-    // let jsonc = JSON.stringify(formGroup.value);
-    // console.log(JSON.stringify(formGroup.value));
+
     let objetosave: etapaSave[] = []
     for (let key in formGroup.value) {
-      // console.log(key + ": " + formGroup.value[key]);
+
       let etapas: etapaSave = { etapa: key, valor: Boolean(formGroup.value[key]), ventaId: this.header.ventaId };
       objetosave.push(etapas)
     }
-    console.log(JSON.stringify(objetosave))
 
 
     const save = this._saleService.saveWorkflow(objetosave).subscribe({
@@ -139,13 +137,14 @@ export class WorkdetailComponent implements OnInit {
 
         }
         else {
+          this._notity.openSnackBar('error al guardar', 'OK', 5);
           // this.openSnackBar("Error al guardar  " + response.message);
           console.log(response);
         }
 
       },
       error: (er: any) => {
-        // this.openSnackBar("Error al guardar la venta");
+        this._notity.openSnackBar('error save catch', 'OK', 5);
         console.log(er.error);
       }
     });

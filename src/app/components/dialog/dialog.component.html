@@ -1,10 +1,10 @@
 
-<h1 mat-dialog-title class="sizeNumber">Total:  $ {{data.name}}</h1>
+<h1 mat-dialog-title class="sizeNumber" style="margin-bottom: 5px;">Total:  $ {{data.name}}</h1>
 <div mat-dialog-content>
   <!-- <p>What's your favorite animal?</p> -->
   <mat-form-field>
     <mat-label>Pago del cliente</mat-label>
-    <input class="sizeNumber" type="number" matInput [(ngModel)]="data.animal" (ngModelChange)="modelChangeFn($event) ">
+    <input class="sizeNumber" type="number" matInput [(ngModel)]="data.animal" (ngModelChange)="modelChangeFn($event)">
   </mat-form-field>
   <br>
   <mat-form-field>

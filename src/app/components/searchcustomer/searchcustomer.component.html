@@ -1,0 +1,42 @@
+
+<!-- <div class="card-box"> -->
+
+   <div class="carrito">
+      <!-- <div class="header-carrito">
+         <h2>Tu Carrito</h2>
+      </div> -->
+      @for (serv of carritoL; track serv.id){
+         <div class="carrito-items">
+            <div class="carrito-item">
+               <!-- <img src="/src/assets/favicon.ico" alt="" width="80px"> -->
+               <div class="carrito-item-detalle">
+                  <span class="carrito-item-titulo">{{serv.descripcion}}</span>
+                  <div class="selector-cantidad">
+                     <mat-icon class="restar-cantidad" (click)="restar(serv.id, serv.cantidad)">remove</mat-icon>
+                     <input type="text" [(ngModel)]="serv.cantidad" class="carrito-item-cantidad" disabled (change)="actualizarCantidad(serv.id, $event)">
+                     <mat-icon (click)="sumar(serv.id, serv.cantidad)" >add</mat-icon>
+                  </div>
+                  <span class="carrito-item-precio">${{serv.precio}}.00</span>
+               </div>
+               <span class="btn-eliminar">
+                  <mat-icon (click)="delete(serv.id)" aria-hidden="false" aria-label="Example home icon" fontIcon="delete"></mat-icon>
+               </span>
+            </div>
+         </div>
+      }
+   
+
+      <div class="carrito-total">
+         <!-- <div class="fila">
+            <strong>Total  </strong>
+            <span class="carrito-precio-total">${{getTotalVenta()}}.00</span>
+         </div> -->
+         <button class="btn-pagar">Total
+            <!-- <mat-icon >shopping_bag</mat-icon>    -->
+            <span >${{getTotalVenta()}}.00</span>
+         </button>
+        
+      </div>
+   </div>
+
+<!-- </div> -->

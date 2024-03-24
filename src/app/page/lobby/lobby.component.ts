@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-lobby',
   standalone: true,
@@ -30,11 +34,12 @@ export class LobbyComponent implements OnInit {
     this.getWaitinList();
   }
 
-  getWaitinList(): void {
+  getWaitinList2(): void {
 
     const loginreturn = this._saleService.getWaitinList()
       .subscribe({
         next: (response: ResponseGeneric) => {
+
           if (response.isSuccess) {
             this.listaEspera = response.result;
           }
@@ -43,18 +48,44 @@ export class LobbyComponent implements OnInit {
           }
 
         },
-        error: (er: any) => {
-          // this.isLoad = false;
-          // this.messageError = "Ocurrio un error al intentar Iniciar Sesión";
+        error: (er: HttpErrorResponse) => {
+          console.log(er)
+          console.log(er.status)
+
           this._notif.openSnackBar("Ocurrio un error al cargar los servicios", "OK", 5);
         }
       });
 
   }
 
+  getWaitinList(): void {
+
+    const loginreturn = this._saleService.getWaitinList()
+      .subscribe((response: ResponseGeneric) => {
+        if (response.isSuccess) {
+          this.listaEspera = response.result;
+        }
+        else {
+          this._notif.openSnackBar("Ocurrio un error al cargar los servicios", "OK", 5);
+        }
+      });
+
+  }
+
+
   newSales() {
-    console.log('new sales');
-    this._router.navigate(['newsale'])
+
+    this._router.navigate(['newventa'])
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 401) {
+      // Handle 401 Unauthorized error
+      console.error('Unauthorized access');
+      // Redirect to login or show a message to the user
+    }
+    console.error('Something went wrong');
+    // return throwError('Something went wrong');
   }
 
 }

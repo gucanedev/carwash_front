@@ -44,41 +44,25 @@
                     
                         <mat-label>Servicio</mat-label>
                         <mat-select [(value)]="selected"   multiple required>
-                          <!-- <mat-select-trigger>
-                            {{service.value?.[0] || ''}}
-                            <span *ngIf="(service.value?.length || 0) > 1" class="example-additional-selection">
-                              (+{{(service.value?.length || 0) - 1}} {{service.value?.length === 2 ? 'other' : 'others'}})
-                            </span>
-                          </mat-select-trigger> -->
+                        
                           <mat-option *ngFor="let topping of serviceList" [value]="topping.id">{{topping.descripcion}}</mat-option>
                         </mat-select>
                         <span  class="errorCustom" >{{geteErrorService()}}</span>
                       </mat-form-field>
                      
-    
-                      <!-- <mat-form-field>
-                        <mat-label>Servicio</mat-label>
-                    
-                        <mat-select [(value)]="selected" multiple>
-                   
-                          <mat-option *ngFor="let currency of toppingList" [value]="currency.servicioId">{{currency.descripcion}}</mat-option>
-                        </mat-select>
-                      </mat-form-field> -->
-    
-                   
-                   
+
                     <button mat-button color="primary"  (click)="vewSalesDetail()" >Detalle</button>
                     <mat-label class="etiquetaTiempo" >{{tiempoEstimadostr}}</mat-label>
                     <br>
-                    <table mat-table [dataSource]="itemVenta" class="mat-elevation-z8">
-                      <!-- Item Column -->
+                   <table mat-table [dataSource]="itemVenta" class="mat-elevation-z8">
+               
                       <ng-container matColumnDef="item">
                         <th mat-header-cell *matHeaderCellDef> Concepto </th>
                         <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
                         <td mat-footer-cell *matFooterCellDef> Total </td>
                       </ng-container>
                     
-                      <!-- Cost Column -->
+                   
                       <ng-container matColumnDef="cost">
                         <th mat-header-cell *matHeaderCellDef> Precio </th>
                         <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency}} </td>
@@ -86,9 +70,12 @@
                       </ng-container>
                     
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                      (click)="selectedRow(row)"></tr>
                       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-                    </table>
+                    </table> 
+                     
+                    
     
                 </div>
             </div>

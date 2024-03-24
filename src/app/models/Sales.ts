@@ -17,6 +17,14 @@ export interface IWaitinList {
     fechaCreo: string;
 }
 
+export interface carritoCompra {
+    id: Number;
+    descripcion: string;
+    precio: number;
+    cantidad: number;
+
+
+}
 
 export class Venta {
     salesId: number;

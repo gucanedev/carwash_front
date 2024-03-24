@@ -6,6 +6,7 @@ import { CatalogoserviceComponent } from './page/catalogoservice/catalogoservice
 import { ServiceeditComponent } from './components/serviceedit/serviceedit.component';
 import { ServiceComponent } from './page/service/service.component';
 import { WorkdetailComponent } from './page/workdetail/workdetail.component';
+import { NewventaComponent } from './page/newventa/newventa.component';
 
 export const routes: Routes = [
     {
@@ -47,6 +48,11 @@ export const routes: Routes = [
         path: 'details/:id',
         component: WorkdetailComponent,
         title: 'detalle del vehiculo'
+    },
+    {
+        path: 'newventa',
+        component: NewventaComponent,
+        title: 'Venta nueva'
     },
 
 
