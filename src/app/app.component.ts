@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { CtoolbarComponent } from './app/components/ctoolbar/ctoolbar.component';
@@ -15,4 +15,9 @@ import { LogingComponent } from './components/loging/loging.component';
 })
 export class AppComponent {
   title = 'carwash';
+
+  // @HostListener('mousemove', ['$event'])
+  // public enviarRaton(btn: any) {
+  //   console.log('Moviendo mouse')
+  // }
 }

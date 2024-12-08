@@ -3,6 +3,12 @@ export interface itemSales {
     cost: number;
 }
 
+
+export interface ISaleDetailsResumen {
+    Nombre: number;
+    precio: number;
+}
+
 export interface IServicioSelect {
     id: Number;
     descripcion: string;
@@ -26,6 +32,12 @@ export interface carritoCompra {
 
 }
 
+export class paySale {
+    ventaId: number;
+    constructor(ventaId: number) {
+        this.ventaId = ventaId;
+    }
+}
 export class Venta {
     salesId: number;
     clienteNombre: string;

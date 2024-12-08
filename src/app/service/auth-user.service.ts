@@ -33,4 +33,18 @@ export class AuthUserService {
       return null;
 
   }
+
+  hasLogin(): boolean {
+    let hastoken = this.getRefreshToken();
+    // console.log(hastoken)
+    if (hastoken === null || hastoken === '')
+      return false;
+    else return true;
+  }
+
+  logOut() {
+    localStorage.removeItem('jwt');
+  }
+
 }
+

@@ -45,6 +45,7 @@ export class NewventaComponent implements OnInit {
   servicioFound: CatServicioH | undefined;
   // stateGroupOptions!: Observable<StateGroup[]>;
   stateGroupOptions!: Observable<CatServicioH[]>;
+  VehiclesFront: string = ''
 
   salesForm = this.fb.group({
     client: [''],
@@ -70,7 +71,7 @@ export class NewventaComponent implements OnInit {
             // console.log(response.result);
             // this.tiempoEstimado = response.result.tiempoEstGeneral;
             // this.getElapseTime(this.tiempoEstimado);
-            // this.VehiclesFront = response.result.vehiculosDelante + ' Vehículos por delante';
+            this.VehiclesFront = response.result.vehiculosDelante + ' Vehículos por delante';
             this.serviceList = response.result.servicios;
             this.stateGroupOptions = this.salesForm.get('service')!.valueChanges.pipe(
               startWith(''),
@@ -99,7 +100,15 @@ export class NewventaComponent implements OnInit {
 
       if (this.servicioFound !== undefined) {
         if (this.carritoFound !== undefined) {
-          this.listCarrito.push({ id: this.servicioFound!.id, cantidad: 1, descripcion: this.servicioFound!.descripcion, precio: this.servicioFound!.precio });
+          const indexitem = this.listCarrito.findIndex(elem => elem.id == idService);
+
+          if (indexitem !== -1) {
+
+            var itemEditar = Object.assign({}, this.listCarrito[indexitem])
+            itemEditar.cantidad++;
+            this.listCarrito.splice(indexitem, 1, itemEditar);
+          } else
+            this.listCarrito.push({ id: this.servicioFound!.id, cantidad: 1, descripcion: this.servicioFound!.descripcion, precio: this.servicioFound!.precio });
         }
       }
     }
@@ -113,6 +122,10 @@ export class NewventaComponent implements OnInit {
 
       let result = { ...this.salesForm.value, service: this.listCarrito, telephone: tel.toString() }
 
+      if (this.listCarrito.length <= 0) {
+        this._snackBar.openSnackBar('Agregue al menos un servicio', 'OK', 5)
+        return;
+      }
 
       const save = this._saleSerice.save(result).subscribe({
         next: (response: ResponseGeneric) => {

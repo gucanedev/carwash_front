@@ -7,6 +7,8 @@ import { ServiceeditComponent } from './components/serviceedit/serviceedit.compo
 import { ServiceComponent } from './page/service/service.component';
 import { WorkdetailComponent } from './page/workdetail/workdetail.component';
 import { NewventaComponent } from './page/newventa/newventa.component';
+import { PaySaleComponent } from './page/pay-sale/pay-sale.component';
+import { CresumenSaleComponent } from './components/cresumen-sale/cresumen-sale.component';
 
 export const routes: Routes = [
     {
@@ -54,6 +56,17 @@ export const routes: Routes = [
         component: NewventaComponent,
         title: 'Venta nueva'
     },
+    {
+        path: 'paySale',
+        component: PaySaleComponent,
+        title: 'Pagar'
+    },
+    {
+        path: 'sumarysale/:id',
+        component: CresumenSaleComponent,
+        title: 'Detalle Venta'
+    },
+
 
 
     { path: '*', component: LogingComponent },

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CatABS, CatService, CatServiceSale, EtapaServicio } from '../models/catServicio';
-import { Venta } from '../models/Sales';
+import { paySale, Venta } from '../models/Sales';
 import { ResponseGeneric } from '../models/commun';
 import { Observable } from 'rxjs';
 import { etapaSave } from '../models/workflow';
@@ -52,6 +52,16 @@ export class SaleService {
     return this.http.post<ResponseGeneric>(`${this.rutaApi}/Venta/workflow`, workflow);
   }
 
+  getPendingSale() {
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/Venta/pysale`);
+  }
+  getDetailsSaleById(saleId: number) {
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/Venta/saledetail?ventaId=${saleId}`);
+  }
+
+  paySale(entity: paySale) {
+    return this.http.post<ResponseGeneric>(`${this.rutaApi}/Venta/salepay`, entity);
+  }
 }
 
 

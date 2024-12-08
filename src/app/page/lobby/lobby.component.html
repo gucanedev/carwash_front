@@ -1,9 +1,15 @@
-
-@for (lsE of listaEspera; track lsE.id) {
-<app-waitlist [trabajo]="lsE"></app-waitlist>
-}
-
-<button mat-fab color="primary"class="floatbuttom"
-    aria-label="Example icon button with a delete icon" (click)="newSales()">
-    <mat-icon>add</mat-icon>
-  </button>
+<div style="margin-top:10px ;">
+  @for (lsE of listaEspera; track lsE.id) {
+    <app-waitlist [trabajo]="lsE"></app-waitlist>
+    }
+    
+    <button mat-fab color="primary"class="floatbuttom"
+        aria-label="Example icon button with a delete icon" (click)="newSales()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-fab color="accent"class="paybuttom"
+        aria-label="Example icon button with a delete icon" (click)="paySales()">
+        <mat-icon>attach_money</mat-icon>
+      </button>
+    
+</div>

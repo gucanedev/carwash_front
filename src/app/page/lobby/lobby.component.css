@@ -3,3 +3,9 @@
     bottom: 40px;
     right: 20%;
 }
+
+.paybuttom {
+    position: fixed;
+    bottom: 100px;
+    right: 20%;
+}

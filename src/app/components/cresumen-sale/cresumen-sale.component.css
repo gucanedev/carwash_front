@@ -1,0 +1,18 @@
+.containerform {
+    position: relative;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+}
+
+tr.mat-mdc-footer-row td {
+    font-weight: bold;
+}
+
+.headerC {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}

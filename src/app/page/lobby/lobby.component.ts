@@ -78,6 +78,12 @@ export class LobbyComponent implements OnInit {
     this._router.navigate(['newventa'])
   }
 
+  paySales() {
+
+    this._router.navigate(['paySale'])
+  }
+
+
   handleError(error: HttpErrorResponse) {
     if (error.status === 401) {
       // Handle 401 Unauthorized error
