@@ -9,6 +9,8 @@ import { WorkdetailComponent } from './page/workdetail/workdetail.component';
 import { NewventaComponent } from './page/newventa/newventa.component';
 import { PaySaleComponent } from './page/pay-sale/pay-sale.component';
 import { CresumenSaleComponent } from './components/cresumen-sale/cresumen-sale.component';
+import { PMsaleComponent } from './page/monitorin/p-msale/p-msale.component';
+
 
 export const routes: Routes = [
     {
@@ -66,8 +68,11 @@ export const routes: Routes = [
         component: CresumenSaleComponent,
         title: 'Detalle Venta'
     },
-
-
+    {
+        path: 'msale',
+        component: PMsaleComponent,
+        title: 'Monitoring'
+    },
 
     { path: '*', component: LogingComponent },
 ];

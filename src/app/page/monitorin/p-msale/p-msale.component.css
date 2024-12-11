@@ -1,0 +1,30 @@
+.cardCustom {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.containercard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px;
+    margin: 5px;
+    /* width: 350px; */
+    width: calc(100% /3 - 15px);
+    /* height: 80px; */
+}
+
+@media(max-width:720px) {
+    .containercard {
+        /* width: 100%; */
+        width: calc(100% /2 - 15px);
+    }
+
+
+}
