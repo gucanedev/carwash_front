@@ -1,7 +1,15 @@
+<div>
+    <div class="cardCustom">
+        @for (item of listaMonitoring; track item.title) {
+            <app-msale class="containercard" [itemMonitor]="item"></app-msale>
+            }
+    
+           
+    </div>
+    <div style="background: white;">
+        <canvas id="canvas">{{chart}}</canvas>
+    </div>
 
-<div class="cardCustom">
-    @for (item of listaMonitoring; track item.title) {
-        <app-msale class="containercard" [itemMonitor]="item"></app-msale>
-        }
 </div>
+
 

@@ -14,6 +14,6 @@ import { itemMonitorinSales } from '../../../models/monitoringSales';
 
 
 export class MsaleComponent {
-  @Input() itemMonitor: itemMonitorinSales = { title: '', value: "", leyenda: "" };
+  @Input() itemMonitor: itemMonitorinSales = { title: '', value: "", leyenda: "", color: "", iconName: "" };
 
 }

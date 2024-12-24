@@ -3,10 +3,10 @@
     <div class="title">
         <div> <span >{{itemMonitor.title}}</span>
         </div>
-    <div style="color: green;">
-        <mat-icon aria-hidden="true" color="red" aria-label="Example attach_money icon" fontIcon="request_quote"></mat-icon>
+    <div [ngStyle]="{color: itemMonitor.color}">
+        <mat-icon aria-hidden="true" color="red" aria-label="Example attach_money icon" fontIcon="{{itemMonitor.iconName}}"></mat-icon>
     </div>
-        
+
     </div>
     <div class="numvalue">
         <div > <span class="cantidad" >{{itemMonitor.value}}</span> <span class="positivePersent" >{{itemMonitor.leyenda}}</span> </div>

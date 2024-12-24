@@ -62,6 +62,10 @@ export class SaleService {
   paySale(entity: paySale) {
     return this.http.post<ResponseGeneric>(`${this.rutaApi}/Venta/salepay`, entity);
   }
+
+  getitemBoard() {
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/Venta/board`);
+  }
 }
 
 
