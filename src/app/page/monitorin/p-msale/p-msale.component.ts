@@ -17,21 +17,24 @@ import { ResponseGeneric } from '../../../models/commun';
 })
 export class PMsaleComponent implements OnInit {
 
+
+
   data = {
     labels: [
-      'Red',
-      'Blue',
-      'Yellow'
+      'Hoy',
+      'Ayer',
+      'Antier'
     ],
     datasets: [{
-      label: 'My First Dataset',
+      label: 'Ventas $',
+      //  label: 'My First Dataset',
       data: [300, 50, 100],
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
         'rgb(255, 205, 86)'
-      ],
-      hoverOffset: 4
+      ]
+      // hoverOffset: 4
     }]
   };
 
@@ -47,22 +50,53 @@ export class PMsaleComponent implements OnInit {
   listaMonitoring: itemMonitorinSales[] = []
 
   chart: any = []
+  chartBar: any = []
 
   ngOnInit(): void {
     this.getBoard();
-    this.chart = new Chart('canvas', {
-      type: 'doughnut',
-      data: this.data,
-    });
+
 
   }
   getBoard() {
     const loginreturn = this._SaleService.getitemBoard()
       .subscribe({
         next: (response: ResponseGeneric) => {
-          console.log(response);
+          // console.log(response);
           if (response.isSuccess) {
-            this.listaMonitoring = response.result;
+            this.listaMonitoring = response.result.board;
+            let dataDb = response.result.dayDashboard;
+            this.chart = new Chart('canvas', {
+              type: 'doughnut',
+              data: {
+                labels: dataDb.labels,
+                datasets: [{
+                  label: 'Ventas $',
+                  data: dataDb.data,
+                  backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                  ],
+                  hoverOffset: 4
+                }]
+              }
+            });
+
+            this.chartBar = new Chart('canvasBar', {
+              type: 'bar',
+              data: {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                datasets: [{
+                  label: 'Ventas $',
+                  data: [30, 40, 45, 50, 50, 45, 35, 37, 55, 50, 35, 60],
+                  backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                  ],
+                }]
+              }
+            });
 
           }
           else {

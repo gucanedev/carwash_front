@@ -20,10 +20,30 @@
     /* height: 80px; */
 }
 
+.graficas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 5px;
+}
+
+.grafica {
+    background: white;
+    margin: 5px;
+    width: 32%;
+    border-radius: 20px;
+}
+
 @media(max-width:720px) {
     .containercard {
         /* width: 100%; */
         width: calc(100% /2 - 15px);
+    }
+
+    .grafica {
+        width: 95%;
+        margin: 5px;
     }
 
 

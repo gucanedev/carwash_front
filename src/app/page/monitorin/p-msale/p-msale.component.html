@@ -6,9 +6,28 @@
     
            
     </div>
-    <div style="background: white;">
-        <canvas id="canvas">{{chart}}</canvas>
+    <div class="graficas">
+        <div class="grafica">
+            <canvas id="canvas"
+            style="height: 30vh; max-height: 30vh" 
+            >{{chart}}</canvas>
+    
+            
+            <!-- <canvas baseChart
+            [data]="chart"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+     
+            ></canvas>  -->
+        </div>
+        <div class="grafica">
+            <canvas id="canvasBar"
+            style="height: 30vh; max-height: 30vh" 
+            >{{chart}}</canvas>
+    
+        </div>
     </div>
+   
 
 </div>
 
