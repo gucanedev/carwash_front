@@ -4,15 +4,17 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ISaleDetailsResumen, paySale } from '../../models/Sales';
 import { SaleService } from '../../service/sale.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResponseGeneric } from '../../models/commun';
+import { ABS, ResponseGeneric } from '../../models/commun';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import {MatRadioModule} from '@angular/material/radio';
 import { NotificacionsnackbarService } from '../../service/notificacionsnackbar.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cresumen-sale',
   standalone: true,
-  imports: [CommonModule, MatChipsModule, MatTableModule, MatButtonModule],
+  imports: [CommonModule, MatChipsModule, MatTableModule, MatButtonModule,MatRadioModule,FormsModule],
   templateUrl: './cresumen-sale.component.html',
   styleUrl: './cresumen-sale.component.css'
 })
@@ -30,11 +32,16 @@ export class CresumenSaleComponent implements OnInit {
   nombreBien: string = '';
   estatudId: number = 1;
   itemSale: ISaleDetailsResumen[] = [];
+ employeeId:number = 0;
+ employees:ABS[]=[{id:0,descripcion:''}]
 
   ngOnInit(): void {
     this.idService = parseInt(this._routeActice.snapshot.paramMap.get('id')!);
-    if (this.idService > 0)
+    if (this.idService > 0) {
       this.getSaleDetailById(this.idService);
+      this.getEmploye();
+    }
+
   }
   getTotal() {
     this.total = this.itemSale.map(t => t.precio).reduce((acc, value) => acc + value, 0);
@@ -76,11 +83,40 @@ export class CresumenSaleComponent implements OnInit {
 
   }
 
+    getEmploye() {
+
+    const selEmploy = this._salesSevice.getAllEmployes()
+      .subscribe({
+        next: (response: ResponseGeneric) => {
+          if (response.isSuccess) {
+            // console.log(response.result,'empleados');
+            this.employees = response.result;
+          }
+          else {
+            console.log('Error');
+
+            // this.isLoad = false;
+          }
+
+        },
+        error: (er: any) => {
+            console.log('Error');
+          // this.isLoad = false;
+          // this.messageError = "Ocurrio un error al intentar Iniciar Sesión";
+          // this.openSnackBar("Ocurrio un error al cargar los servicios");
+        }
+      });
+
+
+  }
+
+
   regresar() {
     this._route.navigate(['/paySale']);
   }
   paySale() {
-    let entity = new paySale(this.idService);
+    console.log(this.employeeId,'EmpleadoId')
+    let entity = new paySale(this.idService,this.employeeId);
 
     const save = this._salesSevice.paySale(entity).subscribe({
       next: (response: ResponseGeneric) => {

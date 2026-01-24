@@ -34,8 +34,10 @@ export interface carritoCompra {
 
 export class paySale {
     ventaId: number;
-    constructor(ventaId: number) {
+    employId:number;
+    constructor(ventaId: number,employId:number) {
         this.ventaId = ventaId;
+        this.employId=employId
     }
 }
 export class Venta {

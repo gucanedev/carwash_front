@@ -25,7 +25,10 @@ export class SaleService {
     return this.http.get<CatServiceSale>(`${this.rutaApi}/Venta/servicios?option=2`);
   }
 
+getAllEmployes() {
 
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/Venta/employe`);
+  }
 
   saveSale(entity: Venta) {
     return this.http.post<ResponseGeneric>(`${this.rutaApi}/Venta`, entity);

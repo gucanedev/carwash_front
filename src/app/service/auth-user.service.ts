@@ -44,6 +44,17 @@ export class AuthUserService {
 
   logOut() {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('R');
+  }
+
+
+   getRoles(): string | null {
+    const storedate = localStorage.getItem('R');
+    if (storedate != null) {
+      return storedate
+    } else
+      return null;
+
   }
 
 }

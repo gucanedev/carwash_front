@@ -67,8 +67,8 @@ export class NewsaleComponent implements OnInit {
   VehiclesFront: string = '';
 
   salesForm = this.fb.group({
-    client: [''],
-    description: [''],
+    client: ['',Validators.required],
+    description: ['',Validators.required],
     service: [],
     package: [],
     telephone: []

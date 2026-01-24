@@ -74,7 +74,7 @@ export class LogingComponent {
             if (response.isSuccess) {
 
               this._userService.SetToken(response.result.tokenData)
-
+              this._userService.SetRoles(response.result.roles)
 
               this.isLoad = false;
               this._router.navigate(['/lobby']);

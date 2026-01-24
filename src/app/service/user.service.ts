@@ -23,6 +23,10 @@ export class UserService {
   SetToken(objToken: IJwt): void {
     localStorage.setItem('jwt', JSON.stringify(objToken));
   }
+   SetRoles(objRol: string): void {
+    localStorage.setItem('R', JSON.stringify(objRol));
+  }
+
 
 
 }

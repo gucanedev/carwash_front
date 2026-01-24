@@ -10,6 +10,8 @@ import { NewventaComponent } from './page/newventa/newventa.component';
 import { PaySaleComponent } from './page/pay-sale/pay-sale.component';
 import { CresumenSaleComponent } from './components/cresumen-sale/cresumen-sale.component';
 import { PMsaleComponent } from './page/monitorin/p-msale/p-msale.component';
+import { hasRoleGuard } from './common/guards/has-role.guard';
+import { NotauthorizedComponent } from './components/common/notauthorized/notauthorized.component';
 
 
 export const routes: Routes = [
@@ -35,11 +37,13 @@ export const routes: Routes = [
     },
     {
         path: 'service',
+        canActivate:[hasRoleGuard("Admin")],
         component: CatalogoserviceComponent,
         title: 'Servicios'
     },
     {
         path: 'service/:id',
+        canActivate:[hasRoleGuard("Admin")],
         component: ServiceeditComponent,
         title: 'neweervicio'
     },
@@ -72,6 +76,10 @@ export const routes: Routes = [
         path: 'msale',
         component: PMsaleComponent,
         title: 'Monitoring'
+    },
+    {
+    path: 'no-autorizado',
+    component: NotauthorizedComponent
     },
 
     { path: '*', component: LogingComponent },
