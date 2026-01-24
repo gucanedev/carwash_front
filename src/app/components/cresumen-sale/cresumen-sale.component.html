@@ -8,7 +8,7 @@
   </mat-chip-option>
 
   <div style="margin-top: 10px; display: grid; grid-auto-flow: row">
-    <label id="example-radio-group-label">¿Quien Atendio el servicio?</label>
+    <h4 id="example-radio-group-label">¿Quien Atendio el servicio?</h4>
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
       class="example-radio-group"
@@ -33,8 +33,10 @@
       <!-- Cost Column -->
       <ng-container matColumnDef="precio">
         <th mat-header-cell *matHeaderCellDef>Precio</th>
-        <td mat-cell *matCellDef="let transaction">{{ transaction.precio }}</td>
-        <td mat-footer-cell *matFooterCellDef>{{ getTotal() }}</td>
+        <td mat-cell *matCellDef="let transaction">
+          ${{ transaction.precio }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef>${{ getTotal() }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

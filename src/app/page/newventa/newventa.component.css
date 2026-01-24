@@ -5,6 +5,25 @@
     border-radius: 10px;
 }
 
+.contenedorServices {
+  display: flex;
+  gap: 16px;
+}
+
+.leftService,
+.rightService {
+  flex: 1;              /* divide equitativamente */
+  padding: 16px;
+}
+
+/* .leftService {
+  background-color: red;
+}
+
+.rightService {
+  background-color: blue;
+} */
+
 .headerC {
     font-size: 20px;
     font-weight: 600;

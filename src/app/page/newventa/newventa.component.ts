@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { SearchcustomerComponent } from '../../components/searchcustomer/searchcustomer.component';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { CatServiceSale, CatServicioH } from '../../models/catServicio';
 import { carritoCompra } from '../../models/Sales';
 import { ResponseGeneric } from '../../models/commun';
 import { Router } from '@angular/router';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export interface StateGroup {
   letter: string;
@@ -30,7 +31,7 @@ export const _filter = (opt: string[], value: string): string[] => {
   selector: 'app-newventa',
   standalone: true,
   imports: [CommonModule, SearchcustomerComponent, ReactiveFormsModule, MatFormFieldModule,
-    MatInputModule, FormsModule, MatButtonModule, MatAutocompleteModule, AsyncPipe],
+    MatInputModule, FormsModule, MatButtonModule, MatAutocompleteModule, AsyncPipe, MatCheckboxModule],
   templateUrl: './newventa.component.html',
   styleUrl: './newventa.component.css'
 })
@@ -39,23 +40,24 @@ export class NewventaComponent implements OnInit {
   constructor(private fb: FormBuilder, private _saleSerice: SaleService,
     private _snackBar: NotificacionsnackbarService, private _router: Router) { }
 
-  serviceList: CatServicioH[] = [{ id: 1, descripcion: "No hay registros", precio: 0, tiempoEstimado: 0, tiempoEstGeneral: 0 }];
+  serviceList: CatServicioH[] = [];
   listCarrito: carritoCompra[] = [];
   carritoFound: carritoCompra = { id: 1, cantidad: 1, descripcion: '', precio: 1 }
   servicioFound: CatServicioH | undefined;
-  // stateGroupOptions!: Observable<StateGroup[]>;
+
   stateGroupOptions!: Observable<CatServicioH[]>;
   VehiclesFront: string = ''
 
   salesForm = this.fb.group({
-    client: [''],
-    description: [''],
+    client: ['',Validators.required],
+    description: ['',Validators.required],
     service: [],
     package: [],
-    telephone: []
+    telephone: [],
+    services: this.fb.group({})
   });
 
-
+  // services: this.fb.group({})
   ngOnInit(): void {
 
     this.getServicesBD();
@@ -73,9 +75,20 @@ export class NewventaComponent implements OnInit {
             // this.getElapseTime(this.tiempoEstimado);
             this.VehiclesFront = response.result.vehiculosDelante + ' Vehículos por delante';
             this.serviceList = response.result.servicios;
-            this.stateGroupOptions = this.salesForm.get('service')!.valueChanges.pipe(
-              startWith(''),
-              map(value => this._filterService(value || '')),
+            // this.stateGroupOptions = this.salesForm.get('service')!.valueChanges.pipe(
+            //   startWith(''),
+            //   map(value => this._filterService(value || '')),
+            // );
+
+            const serviceGroup: any = {};
+
+            this.serviceList.forEach(service => {
+              serviceGroup[service.descripcion] = [false];
+            });
+
+            this.salesForm.setControl(
+              'services',
+              this.fb.group(serviceGroup)
             );
 
           }
@@ -93,26 +106,77 @@ export class NewventaComponent implements OnInit {
       });
   }
 
+  clearService() {
+    const serviceGroup: any = {};
+
+    this.serviceList.forEach(service => {
+      serviceGroup[service.descripcion] = [false];
+    });
+
+    this.listCarrito.forEach(carr => {
+      serviceGroup[carr.descripcion] = [true];
+    });
+
+    this.salesForm.setControl(
+      'services',
+      this.fb.group(serviceGroup)
+    );
+  }
+
+  selectedToppings() {
+    return Object.entries(this.salesForm.get('services')?.value!)
+      .filter(([_, value]) => value)
+      .map(([key]) => key);
+  }
+
+  obtenerIds(arr: string[]) {
+    return arr.map(item => item.split('-')[0]);
+  }
+
+  deshabilitarSeleccionados() {
+    const servicesGroup = this.salesForm.get('services');
+
+    if (!servicesGroup) return;
+
+    Object.entries(servicesGroup.value).forEach(([key, value]) => {
+      if (value === true) {
+        servicesGroup.get(key)?.disable();
+      }
+    });
+  }
+
   agregar() {
     if (this.salesForm.valid) {
-      let idService = this.salesForm.get('service')?.value!
-      this.servicioFound = this.serviceList.find(elem => elem.id == idService);
+      const servicesSelect = this.selectedToppings();
 
-      if (this.servicioFound !== undefined) {
-        if (this.carritoFound !== undefined) {
-          const indexitem = this.listCarrito.findIndex(elem => elem.id == idService);
-
-          if (indexitem !== -1) {
-
-            var itemEditar = Object.assign({}, this.listCarrito[indexitem])
-            itemEditar.cantidad++;
-            this.listCarrito.splice(indexitem, 1, itemEditar);
-          } else
-            this.listCarrito.push({ id: this.servicioFound!.id, cantidad: 1, descripcion: this.servicioFound!.descripcion, precio: this.servicioFound!.precio });
-        }
+      const ids = this.obtenerIds(servicesSelect);
+      if(!ids?.length){
+         this._snackBar.openSnackBar('Seleccion almenos 1 servicio', 'OK', 5)
+         return;
       }
-    }
+      this.deshabilitarSeleccionados();
 
+      ids.forEach(idService => {
+        this.servicioFound = this.serviceList.find(elem => elem.id == parseInt(idService));
+        if (this.servicioFound !== undefined) {
+          if (this.carritoFound !== undefined) {
+            const indexitem = this.listCarrito.findIndex(elem => elem.id == parseInt(idService));
+
+            if (indexitem !== -1) {
+
+              // var itemEditar = Object.assign({}, this.listCarrito[indexitem])
+              // itemEditar.cantidad++;
+              // this.listCarrito.splice(indexitem, 1, itemEditar);
+            }
+            else
+              this.listCarrito.push({ id: this.servicioFound!.id, cantidad: 1, descripcion: this.servicioFound!.descripcion, precio: this.servicioFound!.precio });
+          }
+        }
+      })
+
+
+    }
+    
 
   }
 
@@ -156,11 +220,15 @@ export class NewventaComponent implements OnInit {
 
   updateCarrito($event: carritoCompra[]) {
     this.listCarrito = $event;
+
+    this.clearService();
+    this.deshabilitarSeleccionados();
   }
 
   regresa() {
     this._router.navigate(['/lobby'])
   }
+
 
   private _filterService(value: string): CatServicioH[] {
     if (value) {
