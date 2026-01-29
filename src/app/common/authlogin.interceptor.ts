@@ -13,9 +13,12 @@ export const authloginInterceptor: HttpInterceptorFn = (req, next) => {
 
   let token = _auth.getToken();
   let RefreshToken = _auth.getRefreshToken();
-  const urlLogin = "https://localhost:7052/api/User/login";
-  const urlRefresh = "https://localhost:7052/api/User/refresh";
+  const urlLogin = "http://localhost:5052/api/User/login";
+  const urlRefresh = "'http://localhost:5052/api/User/refresh";
   let stokenC = req.url === urlRefresh ? RefreshToken : token;
+console.log(req.url,'url req')
+console.log(urlLogin,'url urlLogin')
+
 
   if (req.url === urlLogin)
     return next(req);

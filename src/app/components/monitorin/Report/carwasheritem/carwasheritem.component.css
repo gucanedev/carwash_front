@@ -1,0 +1,97 @@
+ .gridFilters {
+     /* display: grid; */
+     /* grid-template-columns: 5; */
+     gap: 1.5rem;
+     /* margin-bottom: 2rem; */
+     margin: 2rem;
+     background: #ffffff;
+     border: 1px solid #e2e8f0;
+     border-radius: 8px;
+     /* padding: 1.5rem; */
+     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+     transition: box-shadow 0.2s;
+ }
+ .filters {
+     /* display: grid; */
+     /* grid-template-columns: 5; */
+     /* gap: 1.5rem; */
+     /* margin-bottom: 2rem; */
+     /* margin: 2rem; */
+     /* background: #ffffff; */
+     /* border: 1px solid #e2e8f0; */
+     /* border-radius: 8px; */
+     padding: 1rem;
+     /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); */
+     /* transition: box-shadow 0.2s; */
+ }
+ 
+ 
+ .kpi-grid {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 1.5rem;
+     
+     /* margin-bottom: 2rem; */
+     margin: 2rem;
+ }
+
+ .card {
+     background: #ffffff;
+     border: 1px solid #e2e8f0;
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+     transition: box-shadow 0.2s;
+ }
+
+ .card:hover {
+     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+ }
+  .kpi-title {
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .kpi-value {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+      }
+.trend-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+      .trend-up {
+        color: #ff4081;
+      }
+      .trend-down {
+        color: #ef4444;
+      }
+       .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+
+
+
+.contenedorServices {
+  display: flex;
+  gap: 16px;
+}
+
+.leftService,
+.rightService {
+  flex: 1;              /* divide equitativamente */
+  padding: 16px;
+}
+
+tr.mat-mdc-footer-row td {
+    font-weight: bold;
+}

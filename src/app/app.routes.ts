@@ -12,6 +12,7 @@ import { CresumenSaleComponent } from './components/cresumen-sale/cresumen-sale.
 import { PMsaleComponent } from './page/monitorin/p-msale/p-msale.component';
 import { hasRoleGuard } from './common/guards/has-role.guard';
 import { NotauthorizedComponent } from './components/common/notauthorized/notauthorized.component';
+import { CarWasherComponent } from './page/monitorin/Report/car-washer/car-washer.component';
 
 
 export const routes: Routes = [
@@ -81,6 +82,12 @@ export const routes: Routes = [
     path: 'no-autorizado',
     component: NotauthorizedComponent
     },
+    {
+    path: 'report-carwaher',
+    component: CarWasherComponent
+    },
 
+
+    
     { path: '*', component: LogingComponent },
 ];

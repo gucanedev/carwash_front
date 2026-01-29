@@ -17,6 +17,7 @@ export const errorApiInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: HttpErrorResponse) => {
 
       isRefreshing = true;
+      console.log('aqui vengo')
       if (error.status === HttpStatusCode.Unauthorized) {
         _auth.logOut();
         _route.navigateByUrl('login')
