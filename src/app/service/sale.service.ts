@@ -71,11 +71,11 @@ getAllEmployes() {
   getitemBoard() {
     return this.http.get<ResponseGeneric>(`${this.rutaApi}/board`);
   }
-   getCarWashers() {
-    return this.http.get<ResponseGeneric>(`${this.rutaApi}/carwasher`);
+   getCarWashers(fecha:any) {
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/carwasher?fecha=${fecha}`);
   }
-  getCarWashersSales(id:number) {
-    return this.http.get<ResponseGeneric>(`${this.rutaApi}/carwasher/sales?EmployeId=${id}`);
+  getCarWashersSales(id:number,fecha:string) {
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/carwasher/sales?EmployeId=${id}&fecha=${fecha}`);
   }
 }
 
