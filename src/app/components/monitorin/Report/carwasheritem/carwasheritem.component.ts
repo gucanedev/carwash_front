@@ -1,119 +1,106 @@
 import { CurrencyPipe, DatePipe, formatDate, JsonPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, Input, input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
-import { ISaleDetailsResumen } from '../../../../models/Sales';
-import { SaleService } from '../../../../service/sale.service';
-import { NotificacionsnackbarService } from '../../../../service/notificacionsnackbar.service';
+
 import { ResponseGeneric } from '../../../../models/commun';
 import { ICarWhashers, ICarWhashersDetails } from '../../../../models/carwashers';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { SaleService } from '../../../../service/sale.service';
+
+
+
+
 
 @Component({
   selector: 'app-carwasheritem',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
-  imports: [MatFormFieldModule, MatDatepickerModule, FormsModule, ReactiveFormsModule, JsonPipe, MatTableModule
-    , DatePipe, CurrencyPipe, MatInputModule,MatButtonModule
+  imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, JsonPipe, MatTableModule
+    , DatePipe, CurrencyPipe
   ],
   templateUrl: './carwasheritem.component.html',
   styleUrl: './carwasheritem.component.css'
 })
+
 export class CarwasheritemComponent implements OnInit {
+  @Input() itemSale!: ICarWhashers[];
+  // itemSale = input<ICarWhashers[]>();
+  fechaSeleccionada = input<Date>();
 
-  constructor(private _salesSevice: SaleService,
-    private _notif: NotificacionsnackbarService) {
+  constructor(private _salesSevice: SaleService) {
 
   }
+
+
   ngOnInit(): void {
-    this.fechaSeleccionada =  new Date();
+    // this.fechaSeleccionada =  new Date();
+    // this.years= this.obtenerUltimos5Anios();
+    // console.log(this.years);
     // this.getSaleEmploye(this.fechaSeleccionada);
-     this.getSaleEmploye(formatDate(this.fechaSeleccionada,'dd/MM/yyyy','es-MX'));
+    //  this.getSaleEmploye(formatDate(this.fechaSeleccionada,'dd/MM/yyyy','es-MX'));
   }
+
+
+  // foods: Food[] = [
+  //   {value: '1', viewValue: 'Reporte por empleado'},
+  //   {value: '2', viewValue: 'Reporte Mensual'},
+  //   {value: '3', viewValue: 'Reporte Rango de fechas'},
+  // ];
+  // years:LastYear[]=[];
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
-  fechaSeleccionada!: Date;
+
+  // selectedyear:string=  new Date().getFullYear().toString();
+  //   selectedValue: string='1';
 
   employeNameCurren: string = '';
   total: number = 0;
   totalDetails: number = 0;
   displayedColumns: string[] = ['name', 'cantidad', 'total'];
   displayedColumnsDetails: string[] = ['Description', 'CreateDate', 'Price'];
-  itemSale: ICarWhashers[] = [];
+  // itemSale: ICarWhashers[] = [];
   itemSaleDetails: ICarWhashersDetails[] = [];
 
-  getSaleEmploye(fecha:any) {
 
-    const saleEmploue = this._salesSevice.getCarWashers(fecha)
+
+  getSaleByEmployeId(id: number, fecha: string) {
+
+    const saleDetails = this._salesSevice.getCarWashersSales(id, fecha)
       .subscribe({
         next: (response: ResponseGeneric) => {
           if (response.isSuccess) {
-            // console.log(response.result,'agrupado');
-
-            this.itemSale = response.result;
-          }
-          else {
-            console.log('Error');
-
-            // this.isLoad = false;
-          }
-
-        },
-        error: (er: any) => {
-          // this.isLoad = false;
-          // this.messageError = "Ocurrio un error al intentar Iniciar Sesión";
-          // this.openSnackBar("Ocurrio un error al cargar los servicios");
-        }
-      });
-
-
-  }
-
-  getSaleByEmployeId(id: number,fecha:string) {
-
-    const saleDetails = this._salesSevice.getCarWashersSales(id,fecha)
-      .subscribe({
-        next: (response: ResponseGeneric) => {
-          if (response.isSuccess) {
-            // console.log(response.result,'Detalle');
-
             this.itemSaleDetails = response.result;
           }
           else {
             console.log('Error');
-
-            // this.isLoad = false;
           }
 
         },
         error: (er: any) => {
-          // this.isLoad = false;
-          // this.messageError = "Ocurrio un error al intentar Iniciar Sesión";
-          // this.openSnackBar("Ocurrio un error al cargar los servicios");
+
         }
       });
 
 
   }
 
-  Search(){
-    console.log(this.fechaSeleccionada,'Fecha Seleccionada')
-    const fechaFormateada = formatDate(this.fechaSeleccionada,'dd/MM/yyyy','es-MX');
-
-    console.log(fechaFormateada,'Fecha Seleccionadaform')
-    this.getSaleEmploye(fechaFormateada);
+  fechaForm():string {
+  
+      const fecha = this.fechaSeleccionada();
+      if (!fecha) return '';
+else 
+    return fecha.toString();
   }
+
   selectedRow(row: any) {
     // console.log(row)
-const fechaDetails=formatDate(this.fechaSeleccionada,'dd/MM/yyyy','es-MX')
-    this.getSaleByEmployeId(row.carWasherId,fechaDetails);
+ 
+    const fechaDetails = formatDate(this.fechaForm(),'dd/MM/yyyy','es-MX') ;
+    // console.log(fechaDetails,'fecha llego')
+    this.getSaleByEmployeId(row.carWasherId, fechaDetails);
     this.employeNameCurren = row.name;
   }
 

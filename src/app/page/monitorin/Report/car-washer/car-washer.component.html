@@ -1,4 +1,72 @@
-@for (item of listaCard; track item.title) {
-<!-- <app-msale [itemMonitor]="item"></app-msale> -->
-<app-carwasheritem></app-carwasheritem>
-}
+<!-- @for (item of listaCard; track item.title) {
+
+
+} -->
+
+<div class="gridFilters">
+  <div class="filters">
+    <mat-form-field
+      appearance="outline"
+      style="width: 350px; margin-right: 8px"
+    >
+      <mat-label>Reporte</mat-label>
+      <mat-select [(ngModel)]="selectedValue" name="food">
+        @for (food of foods; track food) {
+          <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    @if (selectedValue === "1") {
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccionar dia</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [(ngModel)]="fechaSeleccionada"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    }
+    @if (selectedValue === "2") {
+      <mat-form-field appearance="outline">
+        <mat-label>Año</mat-label>
+        <mat-select [(ngModel)]="selectedyear" name="year">
+          @for (year of years; track year) {
+            <mat-option [value]="year.value">{{ year.viewValue }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+    <button
+      style="margin-left: 20px; margin-top: -15px; height: 60px"
+      mat-raised-button
+      color="primary"
+      (click)="Search()"
+    >
+      Generar
+    </button>
+  </div>
+
+  <ng-template #carwasherTemplate>
+    <app-carwasheritem
+      [fechaSeleccionada]="fechaSeleccionada"
+      [itemSale]="itemSale"
+    ></app-carwasheritem>
+  </ng-template>
+
+  <!-- Template para app-monthly -->
+  <ng-template #monthlyTemplate>
+    <app-monthly [monthlysales]="monthlysales"></app-monthly>
+  </ng-template>
+
+  @if (selectedValue === "1") {
+    <ng-container *ngTemplateOutlet="carwasherTemplate"></ng-container>
+  } @else {
+    <ng-container *ngTemplateOutlet="monthlyTemplate"></ng-container>
+  }
+</div>

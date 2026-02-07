@@ -77,6 +77,10 @@ getAllEmployes() {
   getCarWashersSales(id:number,fecha:string) {
     return this.http.get<ResponseGeneric>(`${this.rutaApi}/carwasher/sales?EmployeId=${id}&fecha=${fecha}`);
   }
+
+   getMonthlySales(year:number) {
+    return this.http.get<ResponseGeneric>(`${this.rutaApi}/sales/monthly?year=${year}`);
+  }
 }
 
 

@@ -1,0 +1,77 @@
+<div class="contenedorServices">
+  <div class="leftService">
+    <div>
+      <div class="kpi-title">
+        <span>LISTADO POR TRABAJADOR</span>
+      </div>
+      <!-- <h4>Listado por trabajador</h4> -->
+      <table mat-table [dataSource]="monthlysales" class="mat-elevation-z8">
+        <!-- Item Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.fecha }}
+          </td>
+          <td mat-footer-cell *matFooterCellDef>Total</td>
+        </ng-container>
+
+        <!-- Cost Column -->
+        <ng-container matColumnDef="cantidad">
+          <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+          <td mat-cell *matCellDef="let transaction">
+            {{ transaction.registros }}
+          </td>
+          <td mat-footer-cell *matFooterCellDef>{{ getTotalRegistre() }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef>Precio</th>
+          <td mat-cell *matCellDef="let transaction">
+            ${{ transaction.total }}
+          </td>
+          <td mat-footer-cell *matFooterCellDef>
+            {{ getTotal() | currency: "MXN" }}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+  <div class="rightService">
+    <!-- <div class="kpi-title">
+      <span>DETALLE DEL TRABAJADOR</span>
+      <span class="trend-indicator trend-up">{{ employeNameCurren }}</span>
+    </div>
+  
+    <table mat-table [dataSource]="itemSaleDetails" class="mat-elevation-z8">
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef>Descripcion</th>
+        <td mat-cell *matCellDef="let objDetails">
+          {{ objDetails.description }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef>Total</td>
+      </ng-container>
+
+      <ng-container matColumnDef="CreateDate">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let objDetails">
+          {{ objDetails.createDate | date: "short" }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef>Fecha</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Price">
+        <th mat-header-cell *matHeaderCellDef>Precio</th>
+        <td mat-cell *matCellDef="let objDetails">${{ objDetails.price }}</td>
+        <td mat-footer-cell *matFooterCellDef>
+          {{ getTotalPrice() | currency: "MXN" }}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsDetails"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsDetails"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumnsDetails"></tr>
+    </table> -->
+  </div>
+</div>

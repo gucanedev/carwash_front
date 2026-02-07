@@ -11,3 +11,9 @@ export interface ICarWhashersDetails {
     CreateDate:Date;
     price:number
 }
+
+export interface ISalesMonthly {
+    fecha:string;
+    total: number;
+    registros:number
+}

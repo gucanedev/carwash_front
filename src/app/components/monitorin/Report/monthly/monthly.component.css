@@ -1,0 +1,30 @@
+.contenedorServices {
+  display: flex;
+  gap: 16px;
+}
+
+  .kpi-title {
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .kpi-value {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+      }
+
+      .leftService,
+.rightService {
+  flex: 1;              /* divide equitativamente */
+  padding: 16px;
+}
+
+tr.mat-mdc-footer-row td {
+    font-weight: bold;
+}
