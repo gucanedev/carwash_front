@@ -1,14 +1,6 @@
-<!-- @for (item of listaCard; track item.title) {
-
-
-} -->
-
 <div class="gridFilters">
   <div class="filters">
-    <mat-form-field
-      appearance="outline"
-      style="width: 350px; margin-right: 8px"
-    >
+    <mat-form-field class="typeReport" appearance="outline">
       <mat-label>Reporte</mat-label>
       <mat-select [(ngModel)]="selectedValue" name="food">
         @for (food of foods; track food) {
@@ -43,7 +35,7 @@
       </mat-form-field>
     }
     <button
-      style="margin-left: 20px; margin-top: -15px; height: 60px"
+      class="butonGenerar"
       mat-raised-button
       color="primary"
       (click)="Search()"

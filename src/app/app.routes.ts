@@ -1,93 +1,107 @@
 import { Routes } from '@angular/router';
-import { LobbyComponent } from './page/lobby/lobby.component';
-import { LogingComponent } from './components/loging/loging.component';
-import { NewsaleComponent } from './page/newsale/newsale.component';
-import { CatalogoserviceComponent } from './page/catalogoservice/catalogoservice.component';
-import { ServiceeditComponent } from './components/serviceedit/serviceedit.component';
-import { ServiceComponent } from './page/service/service.component';
-import { WorkdetailComponent } from './page/workdetail/workdetail.component';
-import { NewventaComponent } from './page/newventa/newventa.component';
-import { PaySaleComponent } from './page/pay-sale/pay-sale.component';
-import { CresumenSaleComponent } from './components/cresumen-sale/cresumen-sale.component';
-import { PMsaleComponent } from './page/monitorin/p-msale/p-msale.component';
+
 import { hasRoleGuard } from './common/guards/has-role.guard';
-import { NotauthorizedComponent } from './components/common/notauthorized/notauthorized.component';
-import { CarWasherComponent } from './page/monitorin/Report/car-washer/car-washer.component';
+
 
 
 export const routes: Routes = [
     {
         path: '',
-        component: LobbyComponent,
-        title: 'login'
+      loadComponent: ()=> import('./page/lobby/lobby.component')
+        .then(m => m.LobbyComponent),
+        title: 'lobby'
     },
     {
         path: 'lobby',
-        component: LobbyComponent,
+          loadComponent: ()=> import('./page/lobby/lobby.component')
+        .then(m => m.LobbyComponent),
         title: 'Lobby'
     },
+    // {
+    //     path: 'login',
+    //     loadComponent: ()=> import('./components/loging/loging.component')
+    //     .then(m => m.LogingComponent),
+    //     title: 'login'
+    // },
     {
         path: 'login',
-        component: LogingComponent,
-        title: 'login'
+        loadComponent: () => import('./page/LoginN/login-n.component')
+            .then(m => m.LoginNComponent),
+        title: 'Iniciar Sesión',
     },
     {
         path: 'newsale',
-        component: NewsaleComponent,
+        canActivate:[hasRoleGuard("Admin")],
+        loadComponent: ()=> import('./page/newsale/newsale.component')
+      .then(m => m.NewsaleComponent),
         title: 'Venta'
     },
     {
         path: 'service',
         canActivate:[hasRoleGuard("Admin")],
-        component: CatalogoserviceComponent,
+        loadComponent: ()=> import('./page/catalogoservice/catalogoservice.component')
+      .then(m => m.CatalogoserviceComponent),
         title: 'Servicios'
     },
     {
         path: 'service/:id',
         canActivate:[hasRoleGuard("Admin")],
-        component: ServiceeditComponent,
+         loadComponent: () => import('./components/serviceedit/serviceedit.component')
+            .then(m => m.ServiceeditComponent),
         title: 'neweervicio'
     },
-    {
-        path: 'test',
-        component: ServiceComponent,
-        title: 'test'
-    },
+    // {
+    //     path: 'test',
+    //     component: ServiceComponent,
+    //     title: 'test'
+    // },
     {
         path: 'details/:id',
-        component: WorkdetailComponent,
+          loadComponent: () => import('./page/workdetail/workdetail.component')
+            .then(m => m.WorkdetailComponent),
         title: 'detalle del vehiculo'
     },
     {
         path: 'newventa',
-        component: NewventaComponent,
+         loadComponent: () => import('./page/newventa/newventa.component')
+            .then(m => m.NewventaComponent),
         title: 'Venta nueva'
     },
     {
         path: 'paySale',
-        component: PaySaleComponent,
+            loadComponent: () => import('./page/pay-sale/pay-sale.component')
+            .then(m => m.PaySaleComponent),
         title: 'Pagar'
     },
     {
         path: 'sumarysale/:id',
-        component: CresumenSaleComponent,
+         loadComponent: () => import('./components/cresumen-sale/cresumen-sale.component')
+            .then(m => m.CresumenSaleComponent),
         title: 'Detalle Venta'
     },
     {
         path: 'msale',
-        component: PMsaleComponent,
+        loadComponent: () => import('./page/monitorin/p-msale/p-msale.component')
+            .then(m => m.PMsaleComponent),
         title: 'Monitoring'
     },
     {
-    path: 'no-autorizado',
-    component: NotauthorizedComponent
-    },
-    {
-    path: 'report-carwaher',
-    component: CarWasherComponent
+    path: 'report',
+    canActivate:[hasRoleGuard("Admin")],
+    loadComponent: () => import('./page/monitorin/Report/car-washer/car-washer.component')
+            .then(m => m.CarWasherComponent)
     },
 
 
     
-    { path: '*', component: LogingComponent },
+    // {
+    //     path: 'loginn',
+    //     loadComponent: () => import('./page/LoginN/login-n.component')
+    //         .then(m => m.LoginNComponent),
+    //     title: 'Iniciar Sesión',
+    // },
+    // {
+    //     path: '*', loadComponent: () => import('./components/loging/loging.component')
+    //         .then(m => m.LogingComponent),
+    // },
 ];

@@ -1,28 +1,59 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <!-- <span>Car Wash Pro</span> -->
-    <span routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Car Wash Pro</span>
-    <span class="example-spacer"></span>
-   
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <!-- <span > Servicios</span> -->
-        <span routerLink="/service" routerLinkActive="active" ariaCurrentWhenActive="page">Servicios</span>
-        <!-- <a routerLink="/service/9" routerLinkActive="active" ariaCurrentWhenActive="page">Servicios 2</a> -->
-        
-      </button>
-     
-      <button mat-menu-item (click)="logOutC()">
-        <mat-icon>logout</mat-icon>
-        <span>Cerrar sesión</span>
-      </button>
-    </mat-menu>
-  </mat-toolbar>
+  <!-- <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu</mat-icon>
+  </button> -->
 
- 
+  <img
+    routerLink="/"
+    src="assets/carwashl.jpg"
+    alt="Car Wash Pro"
+    class="logo"
+  />
+  <span
+    routerLink="/"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    class="lettreclas"
+    >Car Wash Pro</span
+  >
+  <span class="example-spacer"></span>
+
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <!-- <span > Servicios</span> -->
+      <span
+        routerLink="/service"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Servicios</span
+      >
+      <!-- <a routerLink="/service/9" routerLinkActive="active" ariaCurrentWhenActive="page">Servicios 2</a> -->
+    </button>
+    <button mat-menu-item>
+      <mat-icon>assignment</mat-icon>
+      <span
+        routerLink="/report"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        >Reportes</span
+      >
+    </button>
+
+    <button mat-menu-item (click)="logOutC()">
+      <mat-icon>logout</mat-icon>
+      <span>Cerrar sesión</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

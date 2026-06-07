@@ -1,0 +1,95 @@
+<div class="login-container">
+  <div class="brand-panel">
+    <div class="brand-content">
+      <img src="assets/carwashl.jpg" alt="CarWash" class="brand-logo" />
+      <h1 class="brand-title">CarWash Pro</h1>
+      <p class="brand-subtitle">Cuidamos tu auto como si fuera nuestro</p>
+      <div class="brand-features">
+        <div class="feature-item">
+          <mat-icon>local_car_wash</mat-icon>
+          <span>Lavado profesional</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>verified</mat-icon>
+          <span>Calidad garantizada</span>
+        </div>
+        <div class="feature-item">
+          <mat-icon>schedule</mat-icon>
+          <span>Servicio rápido</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-panel">
+    <div class="form-wrapper">
+      <div class="form-header">
+        <img src="assets/carwashl.jpg" alt="CarWash" class="form-logo" />
+        <h2>Iniciar Sesión</h2>
+        <p class="form-subtitle">Ingresa tus credenciales para acceder</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Usuario</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="username"
+            placeholder="Correo electrónico o usuario"
+            autocomplete="username"
+          />
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+            El usuario es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="Ingresa tu contraseña"
+            autocomplete="current-password"
+          />
+          <mat-icon matPrefix>lock</mat-icon>
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Toggle password visibility'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            La contraseña es requerida
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="submit-btn"
+          [disabled]="loginForm.invalid || isLoad"
+        >
+          <span *ngIf="!isLoad">Ingresar</span>
+          <mat-spinner *ngIf="isLoad" diameter="24"></mat-spinner>
+        </button>
+
+        <div class="error-message" *ngIf="messageError">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ messageError }}</span>
+        </div>
+      </form>
+
+      <p class="form-footer">
+        &copy; {{ currentYear }} CarWash Pro. Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</div>

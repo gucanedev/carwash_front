@@ -83,3 +83,16 @@
 tr.mat-mdc-footer-row td {
     font-weight: bold;
 }
+
+
+
+@media (max-width: 768px) {
+  .contenedorServices {
+    flex-direction: column; /* uno debajo del otro */
+  }
+
+  .leftService,
+  .rightService {
+    width: 90%; /* ocupa todo el ancho */
+  }
+}

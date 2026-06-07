@@ -7,14 +7,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ABS, ResponseGeneric } from '../../models/commun';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { NotificacionsnackbarService } from '../../service/notificacionsnackbar.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cresumen-sale',
   standalone: true,
-  imports: [CommonModule, MatChipsModule, MatTableModule, MatButtonModule,MatRadioModule,FormsModule],
+  imports: [CommonModule, MatChipsModule, MatTableModule, MatButtonModule, MatRadioModule, FormsModule],
   templateUrl: './cresumen-sale.component.html',
   styleUrl: './cresumen-sale.component.css'
 })
@@ -32,8 +32,8 @@ export class CresumenSaleComponent implements OnInit {
   nombreBien: string = '';
   estatudId: number = 1;
   itemSale: ISaleDetailsResumen[] = [];
- employeeId:number = 0;
- employees:ABS[]=[{id:0,descripcion:''}]
+  employeeId: number = 0;
+  employees: ABS[] = [{ id: 0, descripcion: '' }]
 
   ngOnInit(): void {
     this.idService = parseInt(this._routeActice.snapshot.paramMap.get('id')!);
@@ -83,7 +83,7 @@ export class CresumenSaleComponent implements OnInit {
 
   }
 
-    getEmploye() {
+  getEmploye() {
 
     const selEmploy = this._salesSevice.getAllEmployes()
       .subscribe({
@@ -100,7 +100,7 @@ export class CresumenSaleComponent implements OnInit {
 
         },
         error: (er: any) => {
-            console.log('Error');
+          console.log('Error');
           // this.isLoad = false;
           // this.messageError = "Ocurrio un error al intentar Iniciar Sesión";
           // this.openSnackBar("Ocurrio un error al cargar los servicios");
@@ -115,27 +115,34 @@ export class CresumenSaleComponent implements OnInit {
     this._route.navigate(['/paySale']);
   }
   paySale() {
-    console.log(this.employeeId,'EmpleadoId')
-    let entity = new paySale(this.idService,this.employeeId);
+    console.log(this.employeeId, 'EmpleadoId')
+    if (this.employeeId > 0) {
+      let entity = new paySale(this.idService, this.employeeId);
+      const save = this._salesSevice.paySale(entity).subscribe({
+        next: (response: ResponseGeneric) => {
+          if (response.isSuccess) {
+            this._route.navigate(['/paySale']);
+            this._notif.openSnackBar(response.message, 'OK', 5)
 
-    const save = this._salesSevice.paySale(entity).subscribe({
-      next: (response: ResponseGeneric) => {
-        if (response.isSuccess) {
-          this._route.navigate(['/paySale']);
-          this._notif.openSnackBar(response.message, 'OK', 5)
 
+          }
+          else {
+            this._notif.openSnackBar(response.message, 'OK', 5)
+          }
 
+        },
+        error: (er: any) => {
+          this._notif.openSnackBar('Error al guardar la venta', 'OK', 5)
         }
-        else {
-          this._notif.openSnackBar(response.message, 'OK', 5)
-        }
+      });
+    }
+    else{
+       this._notif.openSnackBar('Seleccione un empledo para continuar', 'OK', 5)
+    }
 
-      },
-      error: (er: any) => {
-        this._notif.openSnackBar('Error al guardar la venta', 'OK', 5)
-      }
-    });
 
 
   }
+
+
 }

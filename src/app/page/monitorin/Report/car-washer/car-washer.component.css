@@ -26,3 +26,35 @@
      /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); */
      /* transition: box-shadow 0.2s; */
  }
+.typeReport{
+    width: 350px; 
+    margin-right: 8px;
+}
+.butonGenerar{
+    margin-left: 20px; 
+    margin-top: -15px; 
+    height: 60px;
+}
+
+ /* Responsivo: Cuando la pantalla sea menor a 768px (Móviles) */
+@media (max-width: 768px) {
+  .contenedor {
+    /* Cambia de fila a columna (se apilan verticalmente) */
+    flex-direction: column; 
+    gap: 10px; /* Añade espacio entre los divs al apilarse */
+  }
+  .typeReport{
+     width: 100%; 
+    
+  }
+
+    .butonGenerar{
+    margin-top: 10px; 
+     width: 100%;
+   margin-left: 0px; 
+    margin-top: 0pxx; 
+    height: 50px;
+}
+
+
+}
